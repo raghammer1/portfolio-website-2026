@@ -1,0 +1,31 @@
+.observatory {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  overflow: visible;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.observatory-scene {
+  --observatory-x: 0px;
+  --observatory-y: 0px;
+  position: absolute;
+  inset: 0;
+}
+
+.observatory-planet {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: translate3d(var(--observatory-x), var(--observatory-y), 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .observatory-scene {
+    --observatory-x: 0px !important;
+    --observatory-y: 0px !important;
+  }
+}
