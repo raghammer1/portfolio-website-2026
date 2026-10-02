@@ -1,9 +1,12 @@
 import { useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { links, personalProjects } from '../data/content';
+import { journeyChapters } from '../data/journey';
 import { ExternalLink } from './ExternalLink';
 import { TransportPreview } from './TransportPreview';
 import { MoviePreview } from './MoviePreview';
+import { JourneyCopy } from './journey/JourneyCopy';
+import { useJourney } from './journey/JourneyContext';
 import './PersonalProjects.css';
 
 // This preset was read from the author's live Sudoku project, rather than invented for the visual.
@@ -58,6 +61,7 @@ function solveSudoku(values: number[]) {
 }
 
 function SudokuPreview() {
+  const { report } = useJourney();
   const instructionsId = useId();
   const inputs = useRef<Array<HTMLInputElement | null>>([]);
   const [board, setBoard] = useState(preset);
@@ -73,13 +77,23 @@ function SudokuPreview() {
     setBoard(next);
     if (value && !canPlace(next, index, value)) {
       setMessage('That number repeats in its row, column or box.');
+      report(
+        'sudoku-preview',
+        'A constraint caught that one. Try another number—the rules are doing their job.',
+      );
     } else if (
       next.every(Boolean) &&
       next.every((current, position) => canPlace(next, position, current))
     ) {
       setMessage('Puzzle complete. Every row, column and box checks out.');
+      report('sudoku-preview', 'Every constraint satisfied. Nicely done.', true);
     } else {
       setMessage('Keep going. Use each number once per row, column and box.');
+      report(
+        'sudoku-preview',
+        'One choice changes what is possible next. That’s the search taking shape.',
+        value !== 0,
+      );
     }
   }
 
@@ -110,6 +124,11 @@ function SudokuPreview() {
     }
     setBoard(solution);
     setMessage('Solved with recursive backtracking. Reset to try it yourself.');
+    report(
+      'sudoku-preview',
+      'Try. Check. Backtrack. A small set of rules, followed all the way to a solution.',
+      true,
+    );
   }
 
   return (
@@ -168,6 +187,7 @@ function SudokuPreview() {
           onClick={() => {
             setBoard(preset);
             setMessage('Puzzle reset. Ready when you are.');
+            report('sudoku-preview', '');
           }}
         >
           Reset
@@ -185,6 +205,9 @@ function SudokuPreview() {
 }
 
 export function PersonalProjects() {
+  const { index: journeyIndex } = useJourney();
+  const guidedSudoku =
+    journeyIndex !== null && journeyChapters[journeyIndex].id === 'sudoku-preview';
   const sudoku = personalProjects.find((project) => project.kind === 'sudoku')!;
   const interactiveProjects = personalProjects.filter((project) => project.kind !== 'sudoku');
   return (
@@ -209,14 +232,16 @@ export function PersonalProjects() {
           aria-labelledby="personal-work-sudoku-heading"
         >
           <div className="personal-work-feature-copy">
-            <p className="personal-work-eyebrow">{sudoku.category}</p>
-            <h3 id="personal-work-sudoku-heading">
-              Sudoku Generator
-              <br />
-              &amp; Solver
-            </h3>
-            <p className="personal-work-description">{sudoku.description}</p>
-            <p className="personal-work-technologies">{sudoku.technologies}</p>
+            <JourneyCopy at="sudoku-preview">
+              <p className="personal-work-eyebrow">{sudoku.category}</p>
+              <h3 id="personal-work-sudoku-heading">
+                Sudoku Generator
+                <br />
+                &amp; Solver
+              </h3>
+              <p className="personal-work-description">{sudoku.description}</p>
+              <p className="personal-work-technologies">{sudoku.technologies}</p>
+            </JourneyCopy>
             <div className="personal-work-actions">
               {sudoku.actions.map((action, index) => (
                 <ExternalLink
@@ -224,7 +249,7 @@ export function PersonalProjects() {
                   key={action.url}
                   href={action.url}
                 >
-                  {action.label}
+                  {guidedSudoku && index === 0 ? 'Open original project' : action.label}
                 </ExternalLink>
               ))}
             </div>
@@ -239,10 +264,12 @@ export function PersonalProjects() {
             aria-labelledby={`personal-work-${project.kind}-heading`}
           >
             <div className="personal-work-feature-copy">
-              <p className="personal-work-eyebrow">{project.category}</p>
-              <h3 id={`personal-work-${project.kind}-heading`}>{project.title}</h3>
-              <p className="personal-work-description">{project.description}</p>
-              <p className="personal-work-technologies">{project.technologies}</p>
+              <JourneyCopy at={`${project.kind}-preview`}>
+                <p className="personal-work-eyebrow">{project.category}</p>
+                <h3 id={`personal-work-${project.kind}-heading`}>{project.title}</h3>
+                <p className="personal-work-description">{project.description}</p>
+                <p className="personal-work-technologies">{project.technologies}</p>
+              </JourneyCopy>
               <div className="personal-work-actions">
                 {project.actions.map((action) => (
                   <ExternalLink className="personal-work-cta" key={action.url} href={action.url}>

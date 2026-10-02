@@ -3,8 +3,10 @@ import { movieCatalogue } from '../data/movieCatalogue';
 import { rankSimilarMovies } from '../lib/movieSimilarity';
 import type { MovieFeatureMode } from '../lib/movieSimilarity';
 import './MoviePreview.css';
+import { useJourney } from './journey/JourneyContext';
 
 export function MoviePreview() {
+  const { report } = useJourney();
   const selectorId = useId();
   const [selectedId, setSelectedId] = useState(movieCatalogue[0].id);
   const [mode, setMode] = useState<MovieFeatureMode>('genres-and-keywords');
@@ -28,7 +30,15 @@ export function MoviePreview() {
           <select
             id={selectorId}
             value={selectedId}
-            onChange={(event) => setSelectedId(event.target.value)}
+            onChange={(event) => {
+              setSelectedId(event.target.value);
+              const movie = movieCatalogue.find((item) => item.id === event.target.value);
+              report(
+                'movies-preview',
+                `${movie?.title ?? 'A new film'}. Same algorithm, different starting point. What connects these stories?`,
+                event.target.value !== selectedId,
+              );
+            }}
           >
             {movieCatalogue.map((movie) => (
               <option key={movie.id} value={movie.id}>
@@ -47,11 +57,29 @@ export function MoviePreview() {
         <button
           type="button"
           aria-pressed={mode === 'genres-and-keywords'}
-          onClick={() => setMode('genres-and-keywords')}
+          onClick={() => {
+            setMode('genres-and-keywords');
+            report(
+              'movies-preview',
+              'Keywords bring the details back in. The definition of “similar” changes the answer.',
+              mode !== 'genres-and-keywords',
+            );
+          }}
         >
           Genres + keywords
         </button>
-        <button type="button" aria-pressed={mode === 'genres'} onClick={() => setMode('genres')}>
+        <button
+          type="button"
+          aria-pressed={mode === 'genres'}
+          onClick={() => {
+            setMode('genres');
+            report(
+              'movies-preview',
+              'Now only genres count. A reminder that the features we choose shape the result.',
+              mode !== 'genres',
+            );
+          }}
+        >
           Genres only
         </button>
       </fieldset>

@@ -6,9 +6,10 @@ Applies to this repository. Keep this file current when the user changes project
 
 - Work in this repository. Preserve unrelated and uncommitted work; do not reset it or overwrite another agent's edits.
 - Spend no money. Do not purchase domains, upgrade plans, or enable paid or metered add-ons.
-- The user explicitly authorized deployment to Cloudflare on 2026-10-02, superseding the initial no-hosting instruction. The portfolio is live on free static hosting at [raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/). Preserve the no-spend constraint; do not ask again for permission to perform work within the authorized deployment scope.
+- The current guided-journey feature is **local development only**, on `feature/guided-portfolio-journey-v0.1`, created from verified, fetched `main` commit `54aa7caa962240e873a1cf3913e5f6bcae7d7a16`. Keep all feature work on this branch. Do not modify, merge into or push `main`.
+- Do not deploy, configure hosting, change infrastructure or touch production for this feature. This explicit restriction supersedes the earlier deployment permission for the current task. The previously published portfolio remains live and untouched at [raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/). Historical hosting instructions below are reference material, not permission to execute them.
 - Public GitHub, LinkedIn, and other first-party sources may be inspected when needed to verify portfolio content. Do not invent professional achievements, measurements, or project capabilities.
-- Upload only the public production output in `dist/` for deployment. Publishing this portfolio does not authorize uploading private repository files or changing repository visibility.
+- If deployment is separately authorized in the future, upload only the public production output in `dist/`. The previous publication does not authorize uploading private repository files or changing repository visibility.
 
 ## Design direction to preserve
 
@@ -18,12 +19,25 @@ Applies to this repository. Keep this file current when the user changes project
 - Keep desktop and mobile compositions intentional. Inspect actual screenshots after visible design changes; passing overflow checks alone does not verify visual quality.
 - Retain visible focus, keyboard interaction, semantic headings, and reduced-motion behavior when refining the presentation.
 
+## Guided journey feature
+
+- The optional ten-chapter journey starts from the hero's **Let me show you around** invitation. Its chapters are Liftoff, Performance, Human judgement, The whole system, Your move, Break the connection, Find a connection, The trajectory, Beyond the code and What's next. The trajectory adds narration above the existing Experience timeline; retain its actual roles, dates and details. Preserve normal browsing, section navigation, photography, personal projects and public information. Do not turn the page into a mandatory tour or broadly redesign it.
+- Use concise first-person narration grounded in verified content. Integrate narration with the current sections rather than a generic tooltip tour; do not invent personal history, achievements, numerical results or project capabilities.
+- Keep journey state in React memory only. Do not write tour state to URLs, browser history or persistent storage. Refresh returns to normal browsing; normal anchor navigation and browser-history navigation exit the journey.
+- Progress is visitor-controlled through Next, Back, Exit, Escape and chapter selection. Chapter changes use instant scroll cuts and focus the chapter heading; reduced motion disables the brief visual settling effect. Do not add timed progression or scroll locks. Free scrolling offers a return-to-chapter control. Exit restores a visible heading or main-region focus without forcing the visitor back to the hero. Keep restoration synchronous with the DOM update so it cannot steal focus from an immediate keyboard restart.
+- `FlightPlan.tsx` and `.css` provide a native dialog for jumping to any chapter, with current-location and completed-experiment indicators. Preserve modal focus, close/return focus and Escape handling without accidentally exiting the journey. Chapter selection must focus the destination heading.
+- Preserve native keyboard ownership: form controls and the rocket retain arrow keys, native selects retain Escape, and an open case-study disclosure handles Escape before the journey. Respect `defaultPrevented`. Keep the keyboard skip-to-controls and demo-focus actions usable.
+- Keep the existing demos mounted so their state persists across chapter changes, exit and restart. Restarting the journey does not reset demos. Narration feedback must come from real demo events. Their controls, source links and explanatory caveats remain usable. Retain the rocket scrollbar's normal native-scroll behavior; its ten journey markers are decorative and positioned from actual section locations.
+- Three optional discovery milestones record a valid Sudoku move or solve, an actual transport timeout retry, and a changed movie selection or feature mode. Never gate navigation on completion. Retain discoveries in React memory for the current page session, including exit/restart, and clear them on refresh. The ending presents all three states and buttons to revisit demos; these indicators must reflect real interactions.
+- Use the existing React/CSS/SVG architecture. No new backend, accounts, analytics, paid API, LLM service or large tour/animation dependency is needed.
+- Verify normal mode as well as every journey chapter on desktop and mobile. `tests/journey.spec.ts` covers entry, progression, chapter selection, exit/Escape, navigation/history exit, refresh, reduced motion, focus and demo state preservation. Include the Experience chapter, flight-plan keyboard/focus behavior, optional milestone triggers and ending revisit controls. Preserve the no-JavaScript normal page with its hidden invitation. Inspect screenshots as well as automated results, and do not report test coverage as proof that a new run passed.
+
 ## Architecture and feature boundaries
 
 - React + TypeScript + Vite, requiring Node.js 22.12 or newer. Production builds are static files in `dist/`.
 - `scripts/prerender.mjs` generates HTML at build time; the browser hydrates it. There is no production Node server, live backend, database, or external runtime API required by this portfolio.
-- `src/data/content.ts` owns identity, public links, professional content, and project descriptions. `Readme.md` describes the component structure in detail.
-- Shared styles load in this order: `styles.css`, `scenes.css`, `chapters.css`. Check existing overrides before adding more. Keep new component styles scoped.
+- `src/data/content.ts` owns identity, public links, professional content, and project descriptions. `src/data/journey.ts` owns chapter narration and targets; keep both sources factually consistent. `JourneyProvider`, `JourneyContext` and `JourneyCopy` in `src/components/journey/` supply the optional journey without remounting the page. `Readme.md` describes the component structure in detail.
+- Shared styles load in this order: `styles.css`, `scenes.css`, `chapters.css`, then `components/journey/Journey.css`. Check existing overrides before adding more. Keep new component styles scoped and preserve the normal composition when journey mode is inactive.
 - `ObservatoryVisual.tsx` and `marsRenderer.ts` render a rotating NASA/USGS surface map using native WebGL. Preserve the photographic fallback, explicit play/pause, reduced-motion loading behavior, mobile texture, and offscreen/hidden-tab suspension. Avoid adding a large graphics dependency for cosmetic changes.
 - Engineering case studies use native `<details>` disclosures, remain readable without JavaScript, and support Escape-to-close with focus restoration. Their diagrams are conceptual illustrations, not actual employer architecture or internal screenshots.
 - `RocketScrollbar.tsx` enhances desktop fine-pointer screens at least 900px wide after hydration. Preserve dragging, track clicks, keyboard controls, page-length recalculation, and cleanup. Touch/narrow screens, forced colors, and no-JavaScript browsing retain the native scrollbar. Do not intercept wheel or trackpad scrolling.
@@ -39,9 +53,11 @@ Applies to this repository. Keep this file current when the user changes project
 - Do not use, test, copy, or expose credentials encountered in upstream project sources. Local previews must not connect to those projects' databases or backends.
 - Keep private verification notes out of public files, build output, and commits. Do not copy the private verification ledger into this file.
 - Images and fonts are self-hosted. Preserve font licenses and image-specific attribution/reuse terms in `docs/image-credits.md` and its public counterpart, `public/image-credits.txt`. Do not assume all NASA-associated imagery has identical reuse terms.
-- The production origin is `https://raghav-agarwal.raghagarwal.workers.dev`. Keep canonical metadata, `og:url`, and absolute social-image URLs aligned with it. Verify the published site and affected assets after subsequent deployments.
+- The production origin is `https://raghav-agarwal.raghagarwal.workers.dev`. Keep canonical metadata, `og:url`, and absolute social-image URLs aligned with it. The current feature must not change production or hosting configuration. Any future, separately authorized deployment should verify the published site and affected assets.
 
-## Cloudflare hosting, authorized 2026-10-02
+## Existing Cloudflare hosting — reference only
+
+The initial deployment was authorized and completed on 2026-10-02. **Do not run deployment or hosting-configuration steps for the current local-only guided-journey task.** Retain this information for a future, separately authorized release.
 
 - Platform: **Cloudflare Workers Static Assets on the Free plan**. Worker name: `raghav-agarwal`; Cloudflare account/subdomain: `raghagarwal`; production origin: `https://raghav-agarwal.raghagarwal.workers.dev`. The dashboard deployment, $0 plan and public HTTP 200 response were verified on 2026-10-02.
 - `wrangler.jsonc` is assets-only, with `assets.directory` set to `./dist`, no server entry point and no service bindings. Preserve that boundary unless the user requests a change; the portfolio requires no deployed backend.
@@ -66,7 +82,7 @@ Applies to this repository. Keep this file current when the user changes project
 | Regenerate social image        | `npm run social:generate`                      |
 
 - Playwright tests use the production preview on port 4173. Rebuild before testing changed application code; reusing the preview server does not rebuild `dist/`. Reload a manually inspected production-preview tab after a build.
-- `npm run check` includes TypeScript, ESLint, formatting, build/prerender, and Playwright. Existing suites cover page navigation/accessibility/responsiveness, Mars rendering/fallbacks, all three project previews, and the rocket scrollbar.
+- `npm run check` includes TypeScript, ESLint, formatting, build/prerender, and Playwright. Suites cover page navigation/accessibility/responsiveness, Mars rendering/fallbacks, all three project previews, the rocket scrollbar and the optional guided journey.
 - Run checks appropriate to the change. For documentation-only edits, verify formatting and the diff; no browser rebuild or new tests are needed. Do not add tests that merely mirror low-impact cosmetic implementation details.
 - Responsive checks cover 375, 390, 768, 1280, 1440, and 1920px. Inspect mobile and desktop screenshots in `test-results/screenshots/` for visual changes.
 - Parallel agents must own separate files. Concurrent Playwright runs need separate output directories and `--reporter=list` to avoid deleting shared artifacts. Coordinate builds so tests inspect the intended version.

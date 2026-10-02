@@ -4,6 +4,7 @@ import App from './App';
 import './styles.css';
 import './scenes.css';
 import './chapters.css';
+import './components/journey/Journey.css';
 
 const root = document.getElementById('root')!;
 const application = (

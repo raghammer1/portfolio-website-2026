@@ -1,6 +1,7 @@
 import type { CaseStudy } from '../data/content';
 import { Arrow } from './Icons';
 import { EngineeringDiagram } from './EngineeringDiagram';
+import { JourneyCopy } from './journey/JourneyCopy';
 
 const photography: Record<string, string> = {
   'python-performance': '/images/mars-dunes.webp',
@@ -22,27 +23,29 @@ export function EngineeringCaseStudy({ study }: { study: CaseStudy }) {
         <div className="case-shade" aria-hidden="true" />
         <div className="case-summary section-shell">
           <div className="case-copy">
-            <div className="case-meta mono">
-              <span className="case-number">{study.number}</span>
-              <span>{study.discipline}</span>
-            </div>
-            <p className="case-company">
-              {study.company}
-              <span
-                className={study.status === 'In development' ? 'development-status' : 'sr-only'}
-              >
-                {study.status}
-              </span>
-            </p>
-            <h3>
-              {study.title.split('\n').map((line, index) => (
-                <span key={line}>
-                  {index > 0 && <br />}
-                  {line}
+            <JourneyCopy at={study.id}>
+              <div className="case-meta mono">
+                <span className="case-number">{study.number}</span>
+                <span>{study.discipline}</span>
+              </div>
+              <p className="case-company">
+                {study.company}
+                <span
+                  className={study.status === 'In development' ? 'development-status' : 'sr-only'}
+                >
+                  {study.status}
                 </span>
-              ))}
-            </h3>
-            <p className="case-description">{study.description}</p>
+              </p>
+              <h3 id={`${study.id}-heading`}>
+                {study.title.split('\n').map((line, index) => (
+                  <span key={line}>
+                    {index > 0 && <br />}
+                    {line}
+                  </span>
+                ))}
+              </h3>
+              <p className="case-description">{study.description}</p>
+            </JourneyCopy>
           </div>
         </div>
       </div>

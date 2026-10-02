@@ -4,6 +4,35 @@ A local-first portfolio built with React, TypeScript and Vite. A cinematic, Spac
 
 The hero projects a NASA Ames/USGS Viking observational map onto a rotating sphere, with a NASA/JPL-Caltech Mars photograph as its fallback. Curiosity's dunes, Apollo 8 Earthrise and city lights photographed from the International Space Station fill the three engineering chapters; another ISS photograph forms the contact scene. All images are served locally as optimized WebP files. Sources, original asset links, processing details and image-specific reuse terms are documented in [docs/image-credits.md](docs/image-credits.md) and the public copy [public/image-credits.txt](public/image-credits.txt), linked from the footer. The MSSS-credited dunes are used under its personal, noncommercial terms. The portfolio uses no NASA or SpaceX logos and implies no affiliation or endorsement.
 
+## Current feature scope
+
+The optional guided portfolio journey is being developed **locally only** on `feature/guided-portfolio-journey-v0.1`, branched from fetched, verified `main` commit `54aa7caa962240e873a1cf3913e5f6bcae7d7a16`. This task does not authorize changes to `main`, a merge, a push to `main`, deployment, hosting configuration, infrastructure changes or spending. The existing live portfolio remains untouched.
+
+## Guided flight
+
+The hero's **Let me show you around** invitation starts an optional ten-chapter journey. First-person narration replaces the active section's introductory copy within the existing composition. It does not hide the rest of the portfolio or replace the working demos.
+
+| Chapter              | Focus                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------ |
+| Liftoff              | Raghav's introduction and curiosity across Python, applied AI and the full stack.          |
+| Performance          | The Python and Polars workflow at Commonwealth Bank, with qualitative performance wording. |
+| Human judgement      | Applied AI work in development, with retrieval, interpretability and human review.         |
+| The whole system     | The replacement timesheet system built at Axiom across the application stack.              |
+| Your move            | The editable Sudoku preview and recursive backtracking.                                    |
+| Break the connection | The local transport simulation's packet loss and recovery.                                 |
+| Find a connection    | Calculated movie similarity and the effect of changing features.                           |
+| The trajectory       | A narrated career introduction above the existing Experience timeline.                     |
+| Beyond the code      | UNSW, Active Thinkers Society and Unwinding Curiosity.                                     |
+| What's next          | An open invitation to connect, explore freely or restart the flight.                       |
+
+Next, Back and the chapter route move at the visitor's pace; there is no timed progression or scroll lock. **Flight plan** opens a native dialog with every chapter, the current location and completed experiment indicators. Visitors can jump directly to any stop. Each chapter change makes an instant scroll cut, focuses its heading and uses a brief visual settling effect. Reduced motion removes that effect. Visitors can freely scroll away and use **Return to current chapter** to rejoin. The desktop rocket continues to represent actual page-scroll position, with ten decorative chapter markers placed at their real positions on the page.
+
+Left and right arrow keys navigate chapters outside native form controls, the rocket and other interactive controls. The project buttons move focus into each demo, while a keyboard skip control reaches the flight controls. Escape closes the flight-plan dialog first, leaves native selects in control and closes an open case-study disclosure before exiting the journey. Exit restores focus to a visible heading or the main reading region without forcing a return to the hero. The final chapter offers **Explore freely** and **Restart flight**.
+
+The demos stay mounted through chapter changes, exit and restart, preserving entered Sudoku values, transport state and movie selections. Narration responds to actual puzzle actions, transport events and movie selections rather than scripted progress. Three optional discovery milestones record a valid Sudoku move or solve, an actual transport timeout retry, and a changed movie selection or feature mode. They never gate navigation and stay in memory for the current page session. The ending shows all three discovery states with buttons to revisit the demos. Restarting the flight does not reset demos or discoveries; the demo controls still manage their own state.
+
+Journey state lives only in React memory, with no URL, history or storage writes. Refresh returns to normal browsing. Ordinary anchor navigation, hash changes and browser back/forward exit the journey. Without JavaScript, the invitation is hidden and the normal prerendered portfolio remains readable. This feature adds no dependencies, media assets, backend, analytics or external runtime requests.
+
 ## Run locally
 
 Requires Node.js 22.12 or newer and npm.
@@ -22,13 +51,15 @@ npm run preview -- --port 4173
 
 Open **http://127.0.0.1:4173**. Both local servers bind to loopback. The portfolio needs no external runtime API, database, analytics or paid service.
 
-## Cloudflare hosting
+## Existing Cloudflare hosting — reference only
+
+The instructions in this section describe the previous deployment. **Do not deploy or change hosting for the current local-only guided-journey feature.** A future release needs separate authorization.
 
 Live at **[raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/)** on **Cloudflare Workers Static Assets, Free plan**. The Worker is `raghav-agarwal` in the `raghagarwal` account. The dashboard deployment and a public HTTP 200 response were verified on 2 October 2026; the account remains on the $0 plan.
 
 `wrangler.jsonc` serves only the production `dist/` directory. It contains no Worker server entry point or paid-service bindings. The initial deployment used the Cloudflare dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository, dependencies, private verification notes or credentials.
 
-For a repeatable CLI deployment after authentication:
+For a future, separately authorized CLI deployment after authentication:
 
 ```sh
 npm run build
@@ -48,10 +79,16 @@ This runs TypeScript, ESLint, formatting, the production build and Playwright ac
 
 Tests cover anchor navigation, case-study keyboard and Escape behavior, no-JavaScript content, reduced motion, bounded pointer parallax, automated WCAG AA checks, metadata and responsive overflow. Dedicated planet tests exercise actual WebGL rotation, keyboard playback controls, offscreen and hidden-tab suspension, reduced-motion loading, texture failures and context loss. Project tests check Sudoku input and solving; transport delivery, loss recovery, duplicate suppression, reset and offscreen pause; and movie similarity against independent numerical fixtures, feature selection and keyboard interaction. Rocket tests cover native-scroll progress, keyboard endpoints, track clicks, dragging, content-height changes and native fallbacks. Screenshots are generated in `test-results/screenshots/` at widths 375, 390, 768, 1280, 1440 and 1920. The 390 and 1440 screenshots include the entire page; focused project screenshots cover mobile and desktop previews. Automated checks supplement manual visual and keyboard review; they are not an accessibility certification.
 
+`tests/journey.spec.ts` covers opt-in keyboard entry, chapter progression and direct navigation, restart, exit focus, real demo interaction and state preservation, native keyboard ownership, case-study Escape priority, free scrolling and the rocket, anchor/history navigation, refresh, reduced motion, automated accessibility checks and the no-JavaScript fallback. It also verifies the Experience chapter, flight-plan focus and Escape behavior, optional milestones, immediate keyboard restart after exit and ending revisit controls. Responsive journey checks use the same six widths plus an 844×390 landscape viewport and produce focused screenshots. Rebuild before testing changed application code; the production preview does not rebuild `dist/` automatically.
+
 ## Structure and content
 
 - `src/data/content.ts`: identity, public links, project content, employer case studies, experience and capabilities.
+- `src/data/journey.ts`: the ten chapter targets, first-person narration, heading identities and optional demo-focus actions, grounded in the same portfolio facts.
 - `src/App.tsx`: semantic page sections, navigation, About and contact.
+- `src/components/journey/JourneyProvider.tsx` and `JourneyContext.ts`: in-memory journey state and discoveries, chapter controls, focus and scroll positioning, navigation/keyboard cleanup and real demo feedback. They wrap the existing page without remounting its demos.
+- `src/components/journey/JourneyCopy.tsx`: the opt-in hero invitation, active chapter narration integrated into existing section-copy slots, and the ending’s discovery log alongside the contact actions. `Journey.css` styles the invitation, chapter presentation and responsive flight controls, with reduced-motion overrides.
+- `src/components/journey/FlightPlan.tsx` and `.css`: a native chapter-picker dialog with current-location and completed-experiment indicators, keyboard focus management and direct chapter navigation.
 - `src/components/RocketScrollbar.tsx` and `.css`: a rocket-shaped page scrollbar with a progress readout, dragging, track clicks and keyboard controls. It replaces the visible native bar only after JavaScript initializes on fine-pointer screens at least 900px wide. Narrow screens, touch-first devices, forced colors and no-JavaScript browsing retain the native scrollbar. Wheel and trackpad scrolling remain native; reduced motion disables the decorative flame.
 - `src/components/ObservatoryVisual.tsx` and `.css`: photographic fallback, bounded pointer parallax and an accessible play/pause control. Pointer parallax settles when input stops and is disabled for reduced-motion preferences and touch input.
 - `src/components/marsRenderer.ts`: a lazy-loaded native WebGL renderer, under 5 KB in the production bundle, with no 3D or animation dependency. The observational surface completes one rotation in 150 seconds under fixed directional lighting. Rendering stops offscreen and in hidden tabs. Reduced-motion users keep the photograph without downloading the map unless they explicitly press play; WebGL or texture failure restores the photograph.
@@ -60,7 +97,7 @@ Tests cover anchor navigation, case-study keyboard and Escape behavior, no-JavaS
 - `src/components/PersonalProjects.tsx` and `.css`: three interactive project previews. Sudoku uses a preset from the original live project, with keyboard navigation, conflict feedback, recursive backtracking and reset. Each preview retains a link to the original project or source.
 - `src/components/TransportPreview.tsx` and `src/lib/transportSimulation.ts`: an educational browser simulation of six numbered segments in a three-packet window. Choose no loss, a dropped data packet or a dropped acknowledgment; run, pause, step or reset to inspect retransmission, ordered buffering and confirmation. Its events and counters come from a deterministic state machine. It uses no sockets and is distinct from the original Python UDP file-transfer project, which also implements SYN/FIN, byte sequence numbers and configurable loss.
 - `src/components/MoviePreview.tsx`, `src/lib/movieSimilarity.ts` and `src/data/movieCatalogue.ts`: an educational browser version of content-based movie discovery using ten hand-curated sample titles. Raw term counts, smoothed TF-IDF, L2 normalization and cosine similarity compute the three closest matches. Visitors can compare genres with or without keywords; percentages mean content similarity. This local preview is separate from the original React/Node.js/MongoDB application and its Python/Flask recommendation service. It makes no database or API requests.
-- `src/styles.css`, `src/scenes.css` and `src/chapters.css`: shared design tokens, cinematic layouts, photographic middle chapters, responsive framing and motion preferences. The mobile composition adjusts image placement and type size explicitly.
+- `src/styles.css`, `src/scenes.css` and `src/chapters.css`: shared design tokens, cinematic layouts, photographic middle chapters, responsive framing and motion preferences. `src/components/journey/Journey.css` loads after these styles and scopes the journey presentation. The mobile composition adjusts image placement and type size explicitly.
 - `scripts/prerender.mjs`: builds and renders static HTML, then removes its temporary server bundle. The browser hydrates that content for enhancements.
 - `wrangler.jsonc`: Cloudflare Workers Static Assets configuration for the built `dist/` directory, with no production server or service bindings.
 - `public/fonts`: self-hosted Latin WOFF2 files and SIL Open Font Licenses for Barlow display typography, Inter body text and IBM Plex Mono metadata.
