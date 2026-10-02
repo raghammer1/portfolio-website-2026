@@ -55,13 +55,13 @@ Open **http://127.0.0.1:4173**. Both local servers bind to loopback. The portfol
 
 ## Cloudflare hosting and releases
 
-Deploy releases from merged `main` to the existing static Worker. The guided-journey release is authorized; no new infrastructure, paid service or account upgrade is needed.
+The guided journey was released on 2 October 2026 from merged `main` commit `fc1ba53` via [PR #1](https://github.com/raghammer1/portfolio-website-2026/pull/1). All 53 checks passed before release; all 21 published files were then verified byte-for-byte against the production build, and the live journey and Experience navigation were exercised. No infrastructure or plan changes were made.
 
 Live at **[raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/)** on **Cloudflare Workers Static Assets, Free plan**. The Worker is `raghav-agarwal` in the `raghagarwal` account. The dashboard deployment and a public HTTP 200 response were verified on 2 October 2026; the account remains on the $0 plan.
 
 `wrangler.jsonc` serves only the production `dist/` directory. It contains no Worker server entry point or paid-service bindings. The initial deployment used the Cloudflare dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository, dependencies, private verification notes or credentials.
 
-For a dashboard release, open the existing **raghav-agarwal** Worker, choose **New deployment**, and select the built `dist/` folder. Review the listed static assets, then choose **Deploy**. Verify the public site and its versioned assets after publication. Dashboard login does not authenticate the CLI.
+For a dashboard release, open the existing **raghav-agarwal** Worker, choose **New deployment**, and select the built `dist/` folder or a ZIP containing only its contents at the archive root (without an enclosing `dist/` directory). The guided-journey release used the ZIP upload, which Cloudflare expanded into 21 assets. Review the listed static assets, then choose **Deploy**. Verify the public site and its versioned assets after publication. Dashboard login does not authenticate the CLI.
 
 For CLI deployment after authentication:
 
