@@ -37,7 +37,7 @@ export const caseStudies: CaseStudy[] = [
     number: '01',
     discipline: 'PYTHON & DATA',
     company: 'Commonwealth Bank',
-    title: 'Less time processing.\nMore room to think.',
+    title: 'Less processing.\nMore possibility.',
     description:
       'An expensive processing workflow, rethought with Python and Polars. A practical performance improvement where execution time matters.',
     outcome: 'Substantially reduced execution time',
@@ -67,7 +67,7 @@ export const caseStudies: CaseStudy[] = [
     number: '02',
     discipline: 'APPLIED AI',
     company: 'Commonwealth Bank',
-    title: 'Intelligence, with\na human in the loop.',
+    title: 'Intelligence.\nWith human judgement.',
     description:
       'Developing LLM-assisted analysis for retail credit decisioning, with context, interpretability and human review at the centre.',
     outcome: 'Context → retrieval → workflow → review',
@@ -97,7 +97,7 @@ export const caseStudies: CaseStudy[] = [
     number: '03',
     discipline: 'FULL-STACK ENGINEERING',
     company: 'Axiom Technologies',
-    title: 'One system.\nEvery layer considered.',
+    title: 'One system.\nEvery layer.',
     description:
       'A replacement timesheet management system, connecting front-end state, REST APIs and backend persistence into a complete application.',
     outcome: 'From interface to persistence',

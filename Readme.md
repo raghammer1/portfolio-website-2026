@@ -1,8 +1,8 @@
 # Raghav Agarwal — The Engineer’s Observatory
 
-A local-first portfolio built with React, TypeScript and Vite. A cinematic, SpaceX-inspired visual rhythm combines an expansive photographic Mars hero, bold uppercase Barlow typography, black backgrounds, restrained controls and an Earth-from-orbit contact scene. Three engineering case studies, three source-verified personal projects, career history and public contact links remain the focus.
+A local-first portfolio built with React, TypeScript and Vite. A cinematic, SpaceX-inspired visual rhythm combines an expansive rotating Mars hero, bold uppercase Barlow typography, black backgrounds, restrained controls and an Earth-from-orbit contact scene. Three photographic engineering chapters lead into playable and source-verified personal projects, career history and public contact links.
 
-The Mars image is a NASA/JPL-Caltech mosaic of Viking Orbiter observations; the Earth horizon is an actual International Space Station photograph. Both are served locally as optimized WebP files. Image credits, original asset links, resizing details and the applicable NASA/JPL reuse policies are documented in [docs/image-credits.md](docs/image-credits.md). The portfolio uses no NASA or SpaceX logos and implies no affiliation or endorsement.
+The hero projects a NASA Ames/USGS Viking observational map onto a rotating sphere, with a NASA/JPL-Caltech Mars photograph as its fallback. Curiosity's dunes, Apollo 8 Earthrise and city lights photographed from the International Space Station fill the three engineering chapters; another ISS photograph forms the contact scene. All images are served locally as optimized WebP files. Sources, original asset links, processing details and image-specific reuse terms are documented in [docs/image-credits.md](docs/image-credits.md) and the public copy [public/image-credits.txt](public/image-credits.txt), linked from the footer. The MSSS-credited dunes are used under its personal, noncommercial terms. The portfolio uses no NASA or SpaceX logos and implies no affiliation or endorsement.
 
 ## Run locally
 
@@ -30,19 +30,21 @@ npm run check
 
 This runs TypeScript, ESLint, formatting, the production build and Playwright acceptance tests. Playwright uses installed Google Chrome on macOS when available; otherwise install its Chromium browser with `npx playwright install chromium`.
 
-Tests cover anchor navigation, case-study keyboard and Escape behavior, no-JavaScript content, reduced motion, bounded pointer parallax, automated WCAG AA checks, metadata and responsive overflow. Screenshots are generated in `test-results/screenshots/` at widths 375, 390, 768, 1280, 1440 and 1920. The 390 and 1440 screenshots include the entire page. Automated checks supplement manual visual and keyboard review; they are not an accessibility certification.
+Tests cover anchor navigation, case-study keyboard and Escape behavior, no-JavaScript content, reduced motion, bounded pointer parallax, automated WCAG AA checks, metadata and responsive overflow. Dedicated planet tests exercise actual WebGL rotation, keyboard playback controls, offscreen and hidden-tab suspension, reduced-motion loading, texture failures and context loss. Project tests check Sudoku keyboard input, conflicts, valid solving, reset and responsive layouts. Screenshots are generated in `test-results/screenshots/` at widths 375, 390, 768, 1280, 1440 and 1920. The 390 and 1440 screenshots include the entire page. Automated checks supplement manual visual and keyboard review; they are not an accessibility certification.
 
 ## Structure and content
 
 - `src/data/content.ts`: identity, public links, project content, employer case studies, experience and capabilities.
 - `src/App.tsx`: semantic page sections, navigation, About and contact.
-- `src/components/ObservatoryVisual.tsx` and `.css`: locally served Mars photography and bounded pointer parallax. Motion stops when the pointer settles and is disabled for reduced-motion preferences and touch input. No WebGL or animation dependency.
-- `src/components/EngineeringCaseStudy.tsx`: native expandable details; remains functional without JavaScript. Escape closes and returns focus to the summary when JavaScript is enabled.
-- `src/components/EngineeringDiagram.tsx` and `ProjectPreview.tsx`: original conceptual illustrations. Employer diagrams are not internal screenshots or actual architecture documentation.
-- `src/styles.css` and `src/scenes.css`: shared design tokens, cinematic layouts, responsive framing, breakpoints and motion preferences. The mobile composition adjusts image placement and type size explicitly.
+- `src/components/ObservatoryVisual.tsx` and `.css`: photographic fallback, bounded pointer parallax and an accessible play/pause control. Pointer parallax settles when input stops and is disabled for reduced-motion preferences and touch input.
+- `src/components/marsRenderer.ts`: a lazy-loaded native WebGL renderer, under 5 KB in the production bundle, with no 3D or animation dependency. The observational surface completes one rotation in 150 seconds under fixed directional lighting. Rendering stops offscreen and in hidden tabs. Reduced-motion users keep the photograph without downloading the map unless they explicitly press play; WebGL or texture failure restores the photograph.
+- `src/components/EngineeringCaseStudy.tsx`: three photographic chapters with native expandable details that remain functional without JavaScript. Their conceptual engineering diagrams appear inside the expanded content. Escape closes a disclosure and returns focus to its summary when JavaScript is enabled.
+- `src/components/EngineeringDiagram.tsx`: original conceptual illustrations, not internal screenshots or actual employer architecture documentation.
+- `src/components/PersonalProjects.tsx` and `.css`: a playable Sudoku preview with a preset from the original live project, keyboard navigation, conflict feedback, recursive backtracking and reset. Compact rows link to the inspected reliable-UDP simulation and TF-IDF/cosine-similarity movie recommendation source repositories. The full Sudoku project remains linked separately.
+- `src/styles.css`, `src/scenes.css` and `src/chapters.css`: shared design tokens, cinematic layouts, photographic middle chapters, responsive framing and motion preferences. The mobile composition adjusts image placement and type size explicitly.
 - `scripts/prerender.mjs`: builds and renders static HTML, then removes its temporary server bundle. The browser hydrates that content for enhancements.
 - `public/fonts`: self-hosted Latin WOFF2 files and SIL Open Font Licenses for Barlow display typography, Inter body text and IBM Plex Mono metadata.
-- `public/images`: optimized NASA Mars and ISS Earth photography; no generated planetary surface is used.
+- `public/images`: optimized NASA photographs and the NASA Ames/USGS Mars map; no generated planetary terrain is used.
 
 Keep professional claims consistent with the supplied brief. Polars improvement wording is intentionally qualitative. Applied AI work is explicitly in development. No résumé download is present because a current résumé was not found. Contact email and Unwinding Curiosity link are intentionally public first-party references. LinkedIn restricts direct automated access; the exact supplied profile was corroborated through first-party crosslinks and indexed content. The Sudoku demonstration was inspected, while the transport and recommendation projects link to inspected source repositories. The optional presentation app is omitted because its authenticated journey was not verified. The private verification ledger is local-only and is never included in `dist`.
 

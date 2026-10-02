@@ -29,3 +29,83 @@
     --observatory-y: 0px !important;
   }
 }
+
+.observatory-photo,
+.observatory-canvas {
+  position: absolute;
+  inset: 0;
+  transition: opacity 700ms ease;
+}
+
+.observatory-canvas {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.observatory[data-enhanced='true'] .observatory-canvas {
+  opacity: 1;
+}
+
+.observatory[data-enhanced='true'] .observatory-photo {
+  opacity: 0;
+}
+
+.observatory-motion-control {
+  position: absolute;
+  z-index: 4;
+  right: 32px;
+  bottom: 22px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 12px;
+  color: #fff;
+  background: #0008;
+  border: 1px solid #ffffff65;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.observatory-motion-control svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.observatory-motion-control:hover {
+  background: #202020;
+  border-color: #fff;
+}
+
+.observatory-motion-control:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+@media (min-width: 601px) {
+  .observatory-motion-control {
+    bottom: max(22px, calc(100% - 100svh + 22px));
+  }
+}
+
+@media (max-width: 600px) {
+  .observatory-motion-control {
+    right: 20px;
+    bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .observatory-photo,
+  .observatory-canvas,
+  .observatory-motion-control {
+    transition: none;
+  }
+}

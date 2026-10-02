@@ -2,6 +2,9 @@ import { mkdir } from 'node:fs/promises';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+// Layout/accessibility checks use the static view; real GPU motion has its own suite.
+test.use({ reducedMotion: 'reduce' });
+
 test('navigation reaches each section without broken local destinations', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
@@ -202,6 +205,19 @@ for (const width of [375, 390, 768, 1280, 1440, 1920]) {
     });
     expect(overflow.pageWidth, JSON.stringify(overflow)).toBeLessThanOrEqual(width + 1);
 
+    // Trigger real lazy image loads before capturing the full document.
+    for (const photo of await page.locator('.case-photograph').all()) {
+      await photo.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() =>
+          photo.evaluate(
+            (image) =>
+              image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+          ),
+        )
+        .toBe(true);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
     await mkdir('test-results/screenshots', { recursive: true });
     await page.screenshot({
       path: `test-results/screenshots/portfolio-${width}.png`,
@@ -209,6 +225,19 @@ for (const width of [375, 390, 768, 1280, 1440, 1920]) {
       animations: 'disabled',
     });
 
+    if (width === 1440 || width === 390) {
+      for (const number of ['01', '02', '03']) {
+        const filename = number === '01' ? `work-${width}` : `work-${number}-${width}`;
+        await page.locator(`.case-study-${number}`).screenshot({
+          path: `test-results/screenshots/${filename}.png`,
+          style: '.site-header, .skip-link { visibility: hidden !important; }',
+        });
+      }
+      await page.locator('.personal-work').screenshot({
+        path: `test-results/screenshots/projects-${width}.png`,
+        style: '.site-header, .skip-link { visibility: hidden !important; }',
+      });
+    }
     for (const summary of await page.locator('details.case-details summary').all()) {
       await summary.click();
     }

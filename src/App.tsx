@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react';
-import {
-  capabilities,
-  caseStudies,
-  experience,
-  identity,
-  links,
-  personalProjects,
-} from './data/content';
+import { capabilities, caseStudies, experience, identity, links } from './data/content';
 import { Arrow, ObservatoryMark } from './components/Icons';
 import { ExternalLink } from './components/ExternalLink';
 import { ObservatoryVisual } from './components/ObservatoryVisual';
 import { EngineeringCaseStudy } from './components/EngineeringCaseStudy';
-import { ProjectPreview } from './components/ProjectPreview';
+import { PersonalProjects } from './components/PersonalProjects';
 
 const sections = ['Work', 'Experience', 'About', 'Contact'];
 
@@ -123,14 +116,19 @@ function SelectedWork() {
         <SectionLabel number="01">SELECTED ENGINEERING</SectionLabel>
         <div className="section-heading work-heading">
           <h2 id="work-heading">
-            Built with purpose.
+            Engineering
             <br />
-            <em>Explained with care.</em>
+            <em>in practice.</em>
           </h2>
-          <p>
-            A closer look at the systems I work on,
-            <br className="desktop-break" /> and the thinking behind them.
-          </p>
+          <div className="work-directory" aria-label="Engineering case studies">
+            {caseStudies.map((study) => (
+              <a href={`#${study.id}`} key={study.id}>
+                <span className="mono">{study.number}</span>
+                <span>{study.discipline}</span>
+                <Arrow diagonal />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
       <div className="case-list">
@@ -138,47 +136,6 @@ function SelectedWork() {
           <EngineeringCaseStudy key={study.id} study={study} />
         ))}
       </div>
-    </section>
-  );
-}
-
-function PersonalProjects() {
-  return (
-    <section className="projects-section section-shell" aria-labelledby="projects-heading">
-      <div className="projects-heading">
-        <div>
-          <p className="eyebrow mono">OFF THE CLOCK / INTO THE DETAILS</p>
-          <h2 id="projects-heading">
-            Curiosity, <em>put to work.</em>
-          </h2>
-        </div>
-        <ExternalLink className="text-link" href={links.github}>
-          All repositories
-        </ExternalLink>
-      </div>
-      <div className="projects-grid">
-        {personalProjects.map((project) => (
-          <article className="personal-project" key={project.kind}>
-            <ProjectPreview kind={project.kind} />
-            <div className="project-copy">
-              <p className="project-type mono">{project.category}</p>
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <p className="project-tech">{project.technologies}</p>
-              <div className="project-links">
-                {project.actions.map((action) => (
-                  <ExternalLink key={action.url} href={action.url}>
-                    {action.label}
-                  </ExternalLink>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-      <p className="project-art-note mono">
-        ORIGINAL ILLUSTRATIONS OF EACH PROJECT’S UNDERLYING IDEAS.
-      </p>
     </section>
   );
 }
@@ -194,55 +151,41 @@ function Experience() {
       <div className="experience-layout">
         <div className="experience-intro">
           <h2 id="experience-heading">
-            Always building.
+            Built on
             <br />
-            <em>Always learning.</em>
+            <em>experience.</em>
           </h2>
           <p>
-            From understanding systems on the ground to designing the software that moves them
-            forward.
+            From enterprise systems to applied AI. A continuing progression toward deeper, more
+            useful engineering.
           </p>
-          <div className="trajectory-art" aria-hidden="true">
-            <svg viewBox="0 0 280 180" fill="none">
-              <path
-                d="M-20 177C33 69 98 184 167 84S238 31 297-3"
-                stroke="#788f9e"
-                strokeOpacity=".5"
-              />
-              <path
-                d="M-20 192C33 84 98 199 167 99S238 46 297 12"
-                stroke="#788f9e"
-                strokeOpacity=".15"
-              />
-              <circle cx="61" cy="128" r="3" fill="#8d9eab" />
-              <circle cx="161" cy="92" r="3" fill="#b2cee4" />
-              <circle cx="238" cy="27" r="4" fill="#d1a569" />
-              <circle cx="238" cy="27" r="10" stroke="#d1a569" strokeOpacity=".3" />
-            </svg>
-            <span className="mono">A CONTINUING EXPLORATION</span>
-          </div>
         </div>
         <div className="experience-list">
           {experience.map((job, index) => (
             <article className="experience-row" key={job.company}>
-              <div className="experience-top">
-                <span className="experience-date mono">{job.dates}</span>
-                {index === 0 && (
-                  <span className="current-role mono">
-                    <i />
-                    CURRENT
+              <span className="experience-index" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <div className="experience-entry">
+                <div className="experience-top">
+                  <span className="experience-date mono">{job.dates}</span>
+                  {index === 0 && (
+                    <span className="current-role mono">
+                      <i />
+                      CURRENT
+                    </span>
+                  )}
+                </div>
+                <h3>{job.company}</h3>
+                <p className="experience-role">{job.role}</p>
+                <p className="experience-detail">{job.detail}</p>
+                {job.recognition && (
+                  <span className="recognition">
+                    <span aria-hidden="true">✧</span>
+                    {job.recognition}
                   </span>
                 )}
               </div>
-              <h3>{job.company}</h3>
-              <p className="experience-role">{job.role}</p>
-              <p className="experience-detail">{job.detail}</p>
-              {job.recognition && (
-                <span className="recognition">
-                  <span aria-hidden="true">✧</span>
-                  {job.recognition}
-                </span>
-              )}
             </article>
           ))}
           <div className="earlier-experience">
@@ -263,21 +206,17 @@ function About() {
     <section className="about-section" id="about" aria-labelledby="about-heading">
       <div className="section-shell">
         <SectionLabel number="03">BEYOND THE CODE</SectionLabel>
-        <h2 className="about-name" id="about-heading">
-          Raghav <em>Agarwal.</em>
-        </h2>
         <div className="about-layout">
           <div className="about-title">
-            <p className="eyebrow mono">ENGINEER. BUILDER. PERPETUAL STUDENT.</p>
-            <h3 className="about-statement">
-              The best part?
+            <p className="eyebrow mono">RAGHAV AGARWAL / ENGINEER & EXPLORER</p>
+            <h2 id="about-heading">
+              Stay curious.
               <br />
-              <em>
-                There’s always
-                <br />
-                more to understand.
-              </em>
-            </h3>
+              <em>Go deeper.</em>
+            </h2>
+            <ExternalLink className="button button-primary curiosity-link" href={links.curiosity}>
+              Unwinding Curiosity
+            </ExternalLink>
           </div>
           <div className="about-copy">
             <p className="about-lead">
@@ -289,22 +228,10 @@ function About() {
               automation, to full-stack applications, data performance and applied AI.
             </p>
             <p>
-              Outside software, I created{' '}
-              <a
-                className="inline-link"
-                href={links.curiosity}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Unwinding Curiosity<span className="sr-only"> (opens in a new tab)</span>
-              </a>{' '}
-              to explore science through articles and conversations. The questions change; the
-              impulse to look closer stays the same.
+              Outside software, I created Unwinding Curiosity to explore science through articles
+              and conversations. The questions change; the impulse to look closer stays the same.
             </p>
             <div className="education">
-              <span className="education-mark" aria-hidden="true">
-                ↗
-              </span>
               <div>
                 <p className="education-title">Bachelor of Computer Science</p>
                 <p>UNSW · 2021 – 2024</p>
@@ -317,7 +244,7 @@ function About() {
         </div>
         <div className="capabilities">
           <div className="capabilities-heading">
-            <span className="eyebrow mono">THE WORKING TOOLBOX</span>
+            <span className="eyebrow mono">CAPABILITIES</span>
             <span className="mono">TOOLS FOLLOW THE PROBLEM.</span>
           </div>
           <div className="capabilities-grid">
@@ -409,20 +336,9 @@ export default function App() {
         </a>
       </footer>
       <div className="image-credits">
-        <span>Planetary imagery:</span>
-        <a
-          href="https://science.nasa.gov/resource/mars-planet-globe/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          NASA / JPL-Caltech <span className="sr-only">(opens in a new tab)</span>
-        </a>
-        <a
-          href="https://www.nasa.gov/image-article/sun-rises-above-horizon-illuminating-earth/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          NASA <span className="sr-only">(opens in a new tab)</span>
+        <span>Imagery: NASA / JPL-Caltech / MSSS / USGS</span>
+        <a href="/image-credits.txt" target="_blank" rel="noopener noreferrer">
+          Image credits<span className="sr-only"> (opens in a new tab)</span>
         </a>
       </div>
     </>

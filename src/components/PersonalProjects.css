@@ -1,0 +1,397 @@
+.personal-work {
+  position: relative;
+  background: #000;
+  color: #f4f4f4;
+  padding: 110px 0 120px;
+}
+
+.personal-work .personal-work-shell {
+  width: min(100% - 112px, 1280px);
+  margin: 0 auto;
+}
+
+.personal-work .personal-work-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 84px;
+}
+
+.personal-work .personal-work-eyebrow {
+  margin: 0 0 20px;
+  color: #a3adb4;
+  font-family: var(--mono, monospace);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.personal-work h2,
+.personal-work h3 {
+  color: #f5f5f5;
+  font-family: var(--display, var(--sans, sans-serif));
+  font-weight: 600;
+  letter-spacing: -0.7px;
+  text-transform: uppercase;
+}
+
+.personal-work h2 {
+  margin: 0;
+  font-size: clamp(46px, 5.1vw, 76px);
+  line-height: 1.02;
+}
+
+.personal-work .personal-work-all,
+.personal-work .personal-work-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  width: fit-content;
+  color: #e1e4e6;
+  font-family: var(--sans, sans-serif);
+  font-size: 12px;
+  line-height: 1.6;
+  text-decoration: none;
+}
+
+.personal-work .personal-work-all {
+  margin-bottom: 5px;
+}
+
+.personal-work a:focus-visible,
+.personal-work button:focus-visible {
+  outline: 2px solid #e0edf7;
+  outline-offset: 5px;
+}
+
+.personal-work .personal-work-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(48px, 8vw, 128px);
+  margin-bottom: 96px;
+}
+
+.personal-work .personal-work-feature h3 {
+  margin: 0 0 26px;
+  font-size: clamp(34px, 3.2vw, 48px);
+  line-height: 1.05;
+}
+
+.personal-work .personal-work-description {
+  max-width: 440px;
+  margin: 0;
+  color: #b9bfc3;
+  font-family: var(--sans, sans-serif);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.personal-work .personal-work-technologies {
+  margin: 22px 0 0;
+  color: #a3afb9;
+  font-family: var(--sans, sans-serif);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.personal-work .personal-work-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin-top: 35px;
+}
+
+.personal-work .personal-work-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  min-height: 54px;
+  padding: 16px 22px;
+  border: 1px solid #ffffff70;
+  color: #fff;
+  font-family: var(--sans, sans-serif);
+  font-size: 11px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.personal-work .personal-work-cta:hover {
+  background: #f0f1ef;
+  color: #090c10;
+}
+
+.personal-work .arrow-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+.personal-work .personal-work-preview {
+  width: 100%;
+  max-width: 530px;
+  justify-self: end;
+}
+
+.personal-work .personal-work-preview-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #c5cdd3;
+  font-family: var(--mono, monospace);
+  font-size: 10px;
+  letter-spacing: 1.1px;
+}
+
+.personal-work .personal-work-preview-instructions {
+  margin: 12px 0 19px;
+  color: #a6b1bb;
+  font-family: var(--sans, sans-serif);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.personal-work .personal-work-board {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid #cbd1d5;
+  background: #eff1ee;
+}
+
+.personal-work .personal-work-cell {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid #bac0c2;
+  border-bottom: 1px solid #bac0c2;
+  border-radius: 0;
+  outline: none;
+  background: #f0f2ef;
+  color: #285778;
+  font-family: var(--mono, monospace);
+  font-size: clamp(17px, 1.7vw, 26px);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  caret-color: #285778;
+  appearance: none;
+}
+
+.personal-work .personal-work-cell.is-given {
+  background: #dde2df;
+  color: #252a2b;
+}
+
+.personal-work .personal-work-cell.box-right {
+  border-right: 2px solid #687778;
+}
+
+.personal-work .personal-work-cell.box-bottom {
+  border-bottom: 2px solid #687778;
+}
+
+.personal-work .personal-work-cell:nth-child(9n) {
+  border-right: 0;
+}
+
+.personal-work .personal-work-cell:nth-last-child(-n + 9) {
+  border-bottom: 0;
+}
+
+.personal-work .personal-work-cell:focus {
+  position: relative;
+  z-index: 1;
+  background: #c8dfeb;
+  box-shadow: inset 0 0 0 2px #234c6b;
+}
+
+.personal-work .personal-work-cell.has-conflict {
+  background: #f0d4d0;
+  color: #932a25;
+}
+
+.personal-work .personal-work-preview-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 19px;
+}
+
+.personal-work .personal-work-preview-controls button {
+  min-height: 40px;
+  padding: 10px 17px;
+  border: 1px solid #727b82;
+  border-radius: 0;
+  background: transparent;
+  color: #eef0f2;
+  font-family: var(--sans, sans-serif);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.personal-work .personal-work-preview-controls button:hover:not(:disabled) {
+  background: #f0f1ef;
+  color: #101418;
+}
+
+.personal-work .personal-work-preview-controls button:disabled {
+  color: #8e9da7;
+  cursor: default;
+}
+
+.personal-work .personal-work-preview-status,
+.personal-work .personal-work-preview-fallback {
+  min-height: 36px;
+  margin: 12px 0 0;
+  color: #acb8c1;
+  font-family: var(--sans, sans-serif);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.personal-work .personal-work-row {
+  display: grid;
+  grid-template-columns: 35px minmax(0, 1fr) minmax(0, 1.1fr) 150px;
+  align-items: start;
+  gap: 28px;
+  padding: 42px 0;
+  border-top: 1px solid #ffffff25;
+}
+
+.personal-work .personal-work-row:last-child {
+  border-bottom: 1px solid #ffffff25;
+}
+
+.personal-work .personal-work-number {
+  padding-top: 3px;
+  color: #a3b2bd;
+  font-family: var(--mono, monospace);
+  font-size: 12px;
+}
+
+.personal-work .personal-work-row .personal-work-eyebrow {
+  margin-bottom: 15px;
+  font-size: 9px;
+  letter-spacing: 0.6px;
+}
+
+.personal-work .personal-work-row h3 {
+  margin: 0;
+  font-size: clamp(27px, 2.2vw, 34px);
+  line-height: 1.08;
+}
+
+.personal-work .personal-work-row .personal-work-description {
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.personal-work .personal-work-row .personal-work-technologies {
+  margin-top: 14px;
+  font-size: 10px;
+}
+
+.personal-work .personal-work-row-actions {
+  padding-top: 1px;
+  justify-self: end;
+}
+
+.personal-work .personal-work-row-actions .personal-work-source {
+  gap: 9px;
+  font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+  .personal-work .personal-work-shell {
+    width: calc(100% - 80px);
+  }
+  .personal-work .personal-work-feature {
+    gap: 46px;
+  }
+  .personal-work .personal-work-row {
+    grid-template-columns: 26px minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 22px;
+  }
+  .personal-work .personal-work-row-actions {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .personal-work {
+    padding: 80px 0 90px;
+  }
+  .personal-work .personal-work-shell {
+    width: calc(100% - 48px);
+  }
+  .personal-work .personal-work-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  .personal-work h2 {
+    font-size: clamp(43px, 8vw, 62px);
+  }
+  .personal-work .personal-work-feature {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-bottom: 58px;
+  }
+  .personal-work .personal-work-feature-copy {
+    max-width: 500px;
+  }
+  .personal-work .personal-work-feature h3 {
+    font-size: clamp(35px, 7.4vw, 45px);
+  }
+  .personal-work .personal-work-preview {
+    max-width: 500px;
+    justify-self: start;
+  }
+  .personal-work .personal-work-cell {
+    font-size: clamp(18px, 4vw, 25px);
+  }
+  .personal-work .personal-work-description {
+    font-size: 14px;
+  }
+  .personal-work .personal-work-row {
+    grid-template-columns: 25px minmax(0, 1fr);
+    gap: 17px;
+    padding: 32px 0;
+  }
+  .personal-work .personal-work-row-copy {
+    grid-column: 2;
+  }
+  .personal-work .personal-work-row-actions {
+    grid-column: 2;
+  }
+  .personal-work .personal-work-row h3 {
+    max-width: 400px;
+    font-size: 29px;
+  }
+  .personal-work .personal-work-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .personal-work .personal-work-cta {
+    transition: none;
+  }
+}
