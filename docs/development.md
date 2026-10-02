@@ -8,7 +8,7 @@ The hero projects a NASA Ames/USGS Viking observational map onto a rotating sphe
 
 ## Current feature scope
 
-The optional guided portfolio journey is being developed **locally only** on `feature/guided-portfolio-journey-v0.1`, branched from fetched, verified `main` commit `54aa7caa962240e873a1cf3913e5f6bcae7d7a16`. This task does not authorize changes to `main`, a merge, a push to `main`, deployment, hosting configuration, infrastructure changes or spending. The existing live portfolio remains untouched.
+The user authorized the guided journey and personal README to be submitted through a GitHub PR, merged into `main`, and deployed to the existing free Cloudflare site on 2 October 2026. This supersedes the earlier local-only restriction. Keep releases reviewable through PRs, deploy only the verified production output from merged `main`, and preserve the no-spend constraint.
 
 ## Guided flight
 
@@ -53,15 +53,15 @@ npm run preview -- --port 4173
 
 Open **http://127.0.0.1:4173**. Both local servers bind to loopback. The portfolio needs no external runtime API, database, analytics or paid service.
 
-## Existing Cloudflare hosting — reference only
+## Cloudflare hosting and releases
 
-The instructions in this section describe the previous deployment. **Do not deploy or change hosting for the current local-only guided-journey feature.** A future release needs separate authorization.
+Deploy releases from merged `main` to the existing static Worker. The guided-journey release is authorized; no new infrastructure, paid service or account upgrade is needed.
 
 Live at **[raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/)** on **Cloudflare Workers Static Assets, Free plan**. The Worker is `raghav-agarwal` in the `raghagarwal` account. The dashboard deployment and a public HTTP 200 response were verified on 2 October 2026; the account remains on the $0 plan.
 
 `wrangler.jsonc` serves only the production `dist/` directory. It contains no Worker server entry point or paid-service bindings. The initial deployment used the Cloudflare dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository, dependencies, private verification notes or credentials.
 
-For a future, separately authorized CLI deployment after authentication:
+For CLI deployment after authentication:
 
 ```sh
 npm run build

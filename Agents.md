@@ -6,10 +6,10 @@ Applies to this repository. Keep this file current when the user changes project
 
 - Work in this repository. Preserve unrelated and uncommitted work; do not reset it or overwrite another agent's edits.
 - Spend no money. Do not purchase domains, upgrade plans, or enable paid or metered add-ons.
-- The current guided-journey feature is **local development only**, on `feature/guided-portfolio-journey-v0.1`, created from verified, fetched `main` commit `54aa7caa962240e873a1cf3913e5f6bcae7d7a16`. Keep all feature work on this branch. Do not modify, merge into or push `main`.
-- Do not deploy, configure hosting, change infrastructure or touch production for this feature. This explicit restriction supersedes the earlier deployment permission for the current task. The previously published portfolio remains live and untouched at [raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/). Historical hosting instructions below are reference material, not permission to execute them.
+- On 2026-10-02 the user explicitly authorized submitting the guided journey and personal README through a GitHub PR, merging into `main`, and deploying to the existing free Cloudflare site. This supersedes the earlier local-only restriction. Use the PR workflow; preserve repository visibility and the no-spend constraint.
+- Production remains [raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/). Deploy the verified production build from merged `main` to the existing Worker; do not add infrastructure or paid services.
 - Public GitHub, LinkedIn, and other first-party sources may be inspected when needed to verify portfolio content. Do not invent professional achievements, measurements, or project capabilities.
-- If deployment is separately authorized in the future, upload only the public production output in `dist/`. The previous publication does not authorize uploading private repository files or changing repository visibility.
+- Upload only the public production output in `dist/` for deployment. The previous publication does not authorize uploading private repository files or changing repository visibility.
 
 ## Design direction to preserve
 
@@ -55,11 +55,11 @@ Applies to this repository. Keep this file current when the user changes project
 - Do not use, test, copy, or expose credentials encountered in upstream project sources. Local previews must not connect to those projects' databases or backends.
 - Keep private verification notes out of public files, build output, and commits. Do not copy the private verification ledger into this file.
 - Images and fonts are self-hosted. Preserve font licenses and image-specific attribution/reuse terms in `docs/image-credits.md` and its public counterpart, `public/image-credits.txt`. Do not assume all NASA-associated imagery has identical reuse terms.
-- The production origin is `https://raghav-agarwal.raghagarwal.workers.dev`. Keep canonical metadata, `og:url`, and absolute social-image URLs aligned with it. The current feature must not change production or hosting configuration. Any future, separately authorized deployment should verify the published site and affected assets.
+- The production origin is `https://raghav-agarwal.raghagarwal.workers.dev`. Keep canonical metadata, `og:url`, and absolute social-image URLs aligned with it. Preserve the existing static hosting configuration and verify the published site and affected assets after deployment.
 
-## Existing Cloudflare hosting — reference only
+## Cloudflare hosting and releases
 
-The initial deployment was authorized and completed on 2026-10-02. **Do not run deployment or hosting-configuration steps for the current local-only guided-journey task.** Retain this information for a future, separately authorized release.
+The initial deployment and the guided-journey release were authorized on 2026-10-02. Release through a GitHub PR into `main`, verify the production build, and deploy only its static assets to the existing Worker.
 
 - Platform: **Cloudflare Workers Static Assets on the Free plan**. Worker name: `raghav-agarwal`; Cloudflare account/subdomain: `raghagarwal`; production origin: `https://raghav-agarwal.raghagarwal.workers.dev`. The dashboard deployment, $0 plan and public HTTP 200 response were verified on 2026-10-02.
 - `wrangler.jsonc` is assets-only, with `assets.directory` set to `./dist`, no server entry point and no service bindings. Preserve that boundary unless the user requests a change; the portfolio requires no deployed backend.
