@@ -195,7 +195,7 @@ export const personalProjects: PersonalProject[] = [
   },
   {
     kind: 'transport',
-    category: 'NETWORKING · SOURCE AVAILABLE',
+    category: 'NETWORKING · INTERACTIVE PREVIEW',
     title: 'Reliable Transport Simulation',
     description:
       'Exploring reliability over UDP: sequence numbers, acknowledgements and retransmission, with simulated packet loss in both directions.',
@@ -204,7 +204,7 @@ export const personalProjects: PersonalProject[] = [
   },
   {
     kind: 'movies',
-    category: 'MACHINE LEARNING · SOURCE AVAILABLE',
+    category: 'MACHINE LEARNING · INTERACTIVE PREVIEW',
     title: 'Movie Recommendation System',
     description:
       'Finding the next film through content similarity. TF-IDF and cosine similarity connect movie genres and keywords to a full-stack browsing experience.',

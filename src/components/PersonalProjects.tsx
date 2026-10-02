@@ -2,6 +2,8 @@ import { useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { links, personalProjects } from '../data/content';
 import { ExternalLink } from './ExternalLink';
+import { TransportPreview } from './TransportPreview';
+import { MoviePreview } from './MoviePreview';
 import './PersonalProjects.css';
 
 // This preset was read from the author's live Sudoku project, rather than invented for the visual.
@@ -184,9 +186,9 @@ function SudokuPreview() {
 
 export function PersonalProjects() {
   const sudoku = personalProjects.find((project) => project.kind === 'sudoku')!;
-  const sourceProjects = personalProjects.filter((project) => project.kind !== 'sudoku');
+  const interactiveProjects = personalProjects.filter((project) => project.kind !== 'sudoku');
   return (
-    <section className="personal-work" aria-labelledby="personal-work-heading">
+    <section className="personal-work" id="projects" aria-labelledby="personal-work-heading">
       <div className="personal-work-shell">
         <header className="personal-work-header">
           <div>
@@ -201,7 +203,11 @@ export function PersonalProjects() {
             All repositories
           </ExternalLink>
         </header>
-        <article className="personal-work-feature" aria-labelledby="personal-work-sudoku-heading">
+        <article
+          className="personal-work-feature"
+          id="sudoku-preview"
+          aria-labelledby="personal-work-sudoku-heading"
+        >
           <div className="personal-work-feature-copy">
             <p className="personal-work-eyebrow">{sudoku.category}</p>
             <h3 id="personal-work-sudoku-heading">
@@ -225,30 +231,31 @@ export function PersonalProjects() {
           </div>
           <SudokuPreview />
         </article>
-        <div className="personal-work-source-projects">
-          {sourceProjects.map((project, index) => (
-            <article className="personal-work-row" key={project.kind}>
-              <span className="personal-work-number" aria-hidden="true">
-                0{index + 2}
-              </span>
-              <div className="personal-work-row-title">
-                <p className="personal-work-eyebrow">{project.category}</p>
-                <h3>{project.title}</h3>
-              </div>
-              <div className="personal-work-row-copy">
-                <p className="personal-work-description">{project.description}</p>
-                <p className="personal-work-technologies">{project.technologies}</p>
-              </div>
-              <div className="personal-work-row-actions">
+        {interactiveProjects.map((project) => (
+          <article
+            className={`personal-work-feature personal-work-interactive personal-work-feature-${project.kind}`}
+            id={`${project.kind}-preview`}
+            key={project.kind}
+            aria-labelledby={`personal-work-${project.kind}-heading`}
+          >
+            <div className="personal-work-feature-copy">
+              <p className="personal-work-eyebrow">{project.category}</p>
+              <h3 id={`personal-work-${project.kind}-heading`}>{project.title}</h3>
+              <p className="personal-work-description">{project.description}</p>
+              <p className="personal-work-technologies">{project.technologies}</p>
+              <div className="personal-work-actions">
                 {project.actions.map((action) => (
-                  <ExternalLink className="personal-work-source" key={action.url} href={action.url}>
-                    {action.label}
+                  <ExternalLink className="personal-work-cta" key={action.url} href={action.url}>
+                    Explore the source
                   </ExternalLink>
                 ))}
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+            <div className="project-live-demo">
+              {project.kind === 'transport' ? <TransportPreview /> : <MoviePreview />}
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import { ExternalLink } from './components/ExternalLink';
 import { ObservatoryVisual } from './components/ObservatoryVisual';
 import { EngineeringCaseStudy } from './components/EngineeringCaseStudy';
 import { PersonalProjects } from './components/PersonalProjects';
+import { RocketScrollbar } from './components/RocketScrollbar';
 
 const sections = ['Work', 'Experience', 'About', 'Contact'];
 
@@ -317,6 +318,7 @@ export default function App() {
         Skip to content
       </a>
       <Navigation />
+      <RocketScrollbar />
       <main id="main" tabIndex={-1}>
         <Hero />
         <SelectedWork />

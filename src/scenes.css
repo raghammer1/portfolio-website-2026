@@ -865,9 +865,52 @@ body {
   gap: 12px;
 }
 .wordmark .observatory-mark {
-  width: 29px;
-  height: 29px;
+  width: 38px;
+  height: 38px;
   color: white;
+}
+.observatory-mark .signature-trajectory {
+  opacity: 0.55;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.observatory-mark .signature-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 550ms var(--ease);
+}
+.wordmark:hover .signature-spark,
+.wordmark:focus-visible .signature-spark,
+.footer-signature:hover .signature-spark,
+.footer-signature:focus-visible .signature-spark {
+  transform: rotate(90deg);
+}
+.wordmark:hover .signature-trajectory,
+.wordmark:focus-visible .signature-trajectory,
+.footer-signature:hover .signature-trajectory,
+.footer-signature:focus-visible .signature-trajectory {
+  animation: signature-flight 650ms var(--ease) both;
+}
+@keyframes signature-flight {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0.3;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .observatory-mark .signature-spark {
+    transition: none;
+  }
+  .wordmark:hover .signature-trajectory,
+  .wordmark:focus-visible .signature-trajectory,
+  .footer-signature:hover .signature-trajectory,
+  .footer-signature:focus-visible .signature-trajectory {
+    animation: none;
+  }
 }
 .wordmark-dot {
   color: white;
@@ -1425,8 +1468,8 @@ body {
     letter-spacing: 1.1px;
   }
   .wordmark .observatory-mark {
-    width: 25px;
-    height: 25px;
+    width: 32px;
+    height: 32px;
   }
   .site-header nav a {
     font-size: 12px;

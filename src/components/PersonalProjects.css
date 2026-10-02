@@ -263,72 +263,12 @@
   line-height: 1.65;
 }
 
-.personal-work .personal-work-row {
-  display: grid;
-  grid-template-columns: 35px minmax(0, 1fr) minmax(0, 1.1fr) 150px;
-  align-items: start;
-  gap: 28px;
-  padding: 42px 0;
-  border-top: 1px solid #ffffff25;
-}
-
-.personal-work .personal-work-row:last-child {
-  border-bottom: 1px solid #ffffff25;
-}
-
-.personal-work .personal-work-number {
-  padding-top: 3px;
-  color: #a3b2bd;
-  font-family: var(--mono, monospace);
-  font-size: 12px;
-}
-
-.personal-work .personal-work-row .personal-work-eyebrow {
-  margin-bottom: 15px;
-  font-size: 9px;
-  letter-spacing: 0.6px;
-}
-
-.personal-work .personal-work-row h3 {
-  margin: 0;
-  font-size: clamp(27px, 2.2vw, 34px);
-  line-height: 1.08;
-}
-
-.personal-work .personal-work-row .personal-work-description {
-  font-size: 13px;
-  line-height: 1.9;
-}
-
-.personal-work .personal-work-row .personal-work-technologies {
-  margin-top: 14px;
-  font-size: 10px;
-}
-
-.personal-work .personal-work-row-actions {
-  padding-top: 1px;
-  justify-self: end;
-}
-
-.personal-work .personal-work-row-actions .personal-work-source {
-  gap: 9px;
-  font-size: 11px;
-}
-
 @media (max-width: 1100px) {
   .personal-work .personal-work-shell {
     width: calc(100% - 80px);
   }
   .personal-work .personal-work-feature {
     gap: 46px;
-  }
-  .personal-work .personal-work-row {
-    grid-template-columns: 26px minmax(0, 1fr) minmax(0, 1.1fr);
-    gap: 22px;
-  }
-  .personal-work .personal-work-row-actions {
-    grid-column: 2 / -1;
-    justify-self: start;
   }
 }
 
@@ -369,21 +309,6 @@
   .personal-work .personal-work-description {
     font-size: 14px;
   }
-  .personal-work .personal-work-row {
-    grid-template-columns: 25px minmax(0, 1fr);
-    gap: 17px;
-    padding: 32px 0;
-  }
-  .personal-work .personal-work-row-copy {
-    grid-column: 2;
-  }
-  .personal-work .personal-work-row-actions {
-    grid-column: 2;
-  }
-  .personal-work .personal-work-row h3 {
-    max-width: 400px;
-    font-size: 29px;
-  }
   .personal-work .personal-work-eyebrow {
     font-size: 9px;
     letter-spacing: 1px;
@@ -393,5 +318,50 @@
 @media (prefers-reduced-motion: reduce) {
   .personal-work .personal-work-cta {
     transition: none;
+  }
+}
+
+.personal-work .personal-work-interactive {
+  border-top: 1px solid #ffffff30;
+  padding-top: 96px;
+  scroll-margin-top: 30px;
+}
+.personal-work .personal-work-interactive:last-child {
+  margin-bottom: 0;
+}
+.personal-work .project-live-demo {
+  width: 100%;
+  max-width: 530px;
+  min-width: 0;
+  justify-self: end;
+}
+.personal-work .personal-work-feature-transport {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+}
+.personal-work .personal-work-feature-transport .personal-work-feature-copy {
+  grid-column: 2;
+  grid-row: 1;
+}
+.personal-work .personal-work-feature-transport .project-live-demo {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+@media (max-width: 760px) {
+  .personal-work .personal-work-interactive {
+    padding-top: 58px;
+    gap: 42px;
+  }
+  .personal-work .personal-work-feature-transport {
+    grid-template-columns: 1fr;
+  }
+  .personal-work .personal-work-feature-transport .personal-work-feature-copy,
+  .personal-work .personal-work-feature-transport .project-live-demo {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .personal-work .project-live-demo {
+    max-width: 500px;
+    justify-self: start;
   }
 }

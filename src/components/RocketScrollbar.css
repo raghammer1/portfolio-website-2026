@@ -1,0 +1,149 @@
+.rocket-scroll {
+  display: none;
+}
+
+/* Enhance only after hydration. Touch, forced colours and no-JS retain native scrolling. */
+@media (min-width: 900px) and (pointer: fine) and (forced-colors: none) {
+  html[data-rocket-scroll] {
+    scrollbar-width: none;
+  }
+  html[data-rocket-scroll]::-webkit-scrollbar {
+    display: none;
+  }
+  html[data-rocket-scroll] .rocket-scroll {
+    --rocket-position: 0px;
+    --rocket-progress: 0;
+    display: block;
+    position: fixed;
+    z-index: 40;
+    top: max(112px, 12vh);
+    right: 6px;
+    bottom: 32px;
+    width: 32px;
+    color: #f3f4f3;
+    touch-action: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .rocket-scroll-track {
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: calc(50% - 0.5px);
+    width: 1px;
+    background: #ffffff22;
+  }
+  .rocket-scroll-track::before,
+  .rocket-scroll-track::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    width: 5px;
+    height: 1px;
+    background: #929596;
+  }
+  .rocket-scroll-track::before {
+    top: 0;
+  }
+  .rocket-scroll-track::after {
+    bottom: 0;
+  }
+  .rocket-scroll-trail {
+    display: block;
+    height: 100%;
+    background: #bbb4a7;
+    transform: scaleY(var(--rocket-progress));
+    transform-origin: top;
+    opacity: 0.55;
+  }
+  .rocket-scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    width: 28px;
+    height: 48px;
+    transform: translateY(var(--rocket-position));
+    cursor: grab;
+    filter: drop-shadow(0 1px 3px #000);
+  }
+  .rocket-scroll-thumb svg {
+    width: 28px;
+    height: 48px;
+  }
+  .rocket-scroll-body {
+    fill: #e3e4e0;
+    stroke: #fff;
+    stroke-width: 0.8;
+  }
+  .rocket-scroll-fin {
+    fill: #969c9f;
+    stroke: #d4d9da;
+    stroke-width: 0.8;
+  }
+  .rocket-scroll-seam {
+    stroke: #62696c;
+    stroke-width: 1;
+  }
+  .rocket-scroll-window {
+    fill: #161d22;
+  }
+  .rocket-scroll-flame {
+    fill: #e8b67d;
+    opacity: 0;
+    transform-origin: 14px 33px;
+    transform: scaleY(0.3);
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease;
+  }
+  .rocket-scroll[data-moving] .rocket-scroll-flame,
+  .rocket-scroll[data-dragging] .rocket-scroll-flame {
+    opacity: 0.95;
+    transform: scaleY(1);
+  }
+  .rocket-scroll[data-dragging],
+  .rocket-scroll[data-dragging] .rocket-scroll-thumb {
+    cursor: grabbing;
+  }
+  .rocket-scroll-readout {
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    display: flex;
+    gap: 12px;
+    padding: 6px 9px;
+    border: 1px solid #ffffff30;
+    background: #080a0bee;
+    color: #c8ced0;
+    font-family: var(--mono, monospace);
+    font-size: 9px;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+  .rocket-scroll-readout > span {
+    color: #fff;
+  }
+  .rocket-scroll:hover .rocket-scroll-readout,
+  .rocket-scroll:focus-visible .rocket-scroll-readout,
+  .rocket-scroll[data-dragging] .rocket-scroll-readout {
+    opacity: 1;
+  }
+  .rocket-scroll:focus-visible .rocket-scroll-thumb {
+    outline: 1px solid #fff;
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rocket-scroll-flame {
+    display: none;
+  }
+  .rocket-scroll-readout {
+    transition: none;
+  }
+}
