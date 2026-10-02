@@ -8,6 +8,7 @@ import {
 } from '../lib/transportSimulation';
 import type { TransportScenario } from '../lib/transportSimulation';
 import './TransportPreview.css';
+import { useJourney } from './journey/JourneyContext';
 
 const scenarios: Array<{ value: TransportScenario; label: string }> = [
   { value: 'reliable', label: 'Reliable' },
@@ -16,6 +17,7 @@ const scenarios: Array<{ value: TransportScenario; label: string }> = [
 ];
 
 export function TransportPreview() {
+  const { report } = useJourney();
   const headingId = useId();
   const scenarioName = useId();
   const hostRef = useRef<HTMLDivElement>(null);
@@ -23,6 +25,27 @@ export function TransportPreview() {
   const [running, setRunning] = useState(false);
   const playing = running && !state.complete;
   const disrupted = state.event.kind === 'data-loss' || state.event.kind === 'ack-loss';
+
+  useEffect(() => {
+    if (state.complete)
+      report(
+        'transport-preview',
+        'Six packets, in order. Message delivered and confirmed.',
+        state.retries > 0,
+      );
+    else if (state.retries > 0)
+      report(
+        'transport-preview',
+        'There’s the retry. Reliability comes from expecting a failure and knowing what to do next.',
+        true,
+      );
+    else if (disrupted)
+      report(
+        'transport-preview',
+        'A packet went missing. Watch what the sender does when the acknowledgment doesn’t arrive.',
+      );
+    else if (state.tick === 0) report('transport-preview', '');
+  }, [state.complete, state.retries, state.tick, disrupted, report]);
 
   useEffect(() => {
     if (!playing) return;

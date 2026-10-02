@@ -1,12 +1,16 @@
 import { useEffect, useRef } from 'react';
 import type { KeyboardEvent, PointerEvent } from 'react';
 import './RocketScrollbar.css';
+import { useJourney } from './journey/JourneyContext';
+import { journeyChapters } from '../data/journey';
 
 const THUMB_HEIGHT = 48;
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 const scrollRange = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
 export function RocketScrollbar() {
+  const { index: journeyIndex } = useJourney();
+  const checkpoints = useRef<Array<HTMLSpanElement | null>>([]);
   const railRef = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLSpanElement>(null);
   const readoutRef = useRef<HTMLSpanElement>(null);
@@ -21,6 +25,7 @@ export function RocketScrollbar() {
     );
     let frame = 0;
     let idleTimer = 0;
+    let layoutDirty = true;
 
     const update = () => {
       frame = 0;
@@ -35,11 +40,23 @@ export function RocketScrollbar() {
       rail.setAttribute('aria-valuetext', `${percent}% of page`);
       if (readoutRef.current)
         readoutRef.current.textContent = `${String(percent).padStart(2, '0')}%`;
+      if (layoutDirty && journeyIndex !== null) {
+        const headerHeight =
+          document.querySelector('.site-header')?.getBoundingClientRect().height ?? 100;
+        journeyChapters.forEach((chapter, index) => {
+          const target = document.getElementById(chapter.id);
+          const marker = checkpoints.current[index];
+          if (target && marker)
+            marker.style.top = `${clamp((target.getBoundingClientRect().top + window.scrollY - headerHeight) / Math.max(1, range)) * 100}%`;
+        });
+        layoutDirty = false;
+      }
     };
     const schedule = () => {
       if (!frame && media.matches) frame = window.requestAnimationFrame(update);
     };
     const configure = () => {
+      layoutDirty = true;
       root.toggleAttribute('data-rocket-scroll', media.matches);
       schedule();
     };
@@ -51,23 +68,27 @@ export function RocketScrollbar() {
       schedule();
     };
     // Expanded case studies, fonts and responsive changes all affect page length.
-    const observer = new ResizeObserver(schedule);
+    const layoutChanged = () => {
+      layoutDirty = true;
+      schedule();
+    };
+    const observer = new ResizeObserver(layoutChanged);
     observer.observe(document.body);
     observer.observe(rail);
     configure();
     media.addEventListener('change', configure);
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', schedule);
+    window.addEventListener('resize', layoutChanged);
     return () => {
       root.removeAttribute('data-rocket-scroll');
       observer.disconnect();
       media.removeEventListener('change', configure);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', schedule);
+      window.removeEventListener('resize', layoutChanged);
       window.cancelAnimationFrame(frame);
       window.clearTimeout(idleTimer);
     };
-  }, []);
+  }, [journeyIndex]);
 
   function seek(event: PointerEvent<HTMLDivElement>) {
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -137,10 +158,21 @@ export function RocketScrollbar() {
     >
       <span className="rocket-scroll-track" aria-hidden="true">
         <span className="rocket-scroll-trail" />
+        {journeyIndex !== null &&
+          journeyChapters.map((chapter, index) => (
+            <span
+              key={chapter.id}
+              ref={(element) => {
+                checkpoints.current[index] = element;
+              }}
+              className="journey-rocket-stop"
+              data-current={index === journeyIndex || undefined}
+            />
+          ))}
       </span>
       <span className="rocket-scroll-thumb" ref={thumbRef} aria-hidden="true">
         <span className="rocket-scroll-readout">
-          SCROLL <span ref={readoutRef}>00%</span>
+          {journeyIndex === null ? 'SCROLL' : 'FLIGHT'} <span ref={readoutRef}>00%</span>
         </span>
         <svg viewBox="0 0 28 48" fill="none" focusable="false">
           <path className="rocket-scroll-flame" d="M11 33Q10 40 14 47Q18 40 17 33Z" />

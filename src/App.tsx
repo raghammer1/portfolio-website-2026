@@ -6,6 +6,8 @@ import { ObservatoryVisual } from './components/ObservatoryVisual';
 import { EngineeringCaseStudy } from './components/EngineeringCaseStudy';
 import { PersonalProjects } from './components/PersonalProjects';
 import { RocketScrollbar } from './components/RocketScrollbar';
+import { JourneyProvider } from './components/journey/JourneyProvider';
+import { JourneyCopy, JourneyInvitation, JourneyFlightLog } from './components/journey/JourneyCopy';
 
 const sections = ['Work', 'Experience', 'About', 'Contact'];
 
@@ -82,23 +84,26 @@ function Hero() {
       <div className="hero-shade" aria-hidden="true" />
       <div className="hero-main section-shell">
         <div className="hero-copy">
-          <p className="hero-eyebrow mono">
-            <span className="signal-dot" />
-            SOFTWARE ENGINEER · SYDNEY, AU
-          </p>
-          <h1 id="hero-heading">
-            Engineering
-            <br />
-            <em>intelligent</em>
-            <br />
-            systems<span className="heading-stop">.</span>
-          </h1>
-          <p className="hero-introduction">{identity.introduction}</p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#work">
-              Explore my work <Arrow />
-            </a>
-          </div>
+          <JourneyCopy at="top">
+            <p className="hero-eyebrow mono">
+              <span className="signal-dot" />
+              SOFTWARE ENGINEER · SYDNEY, AU
+            </p>
+            <h1 id="hero-heading">
+              Engineering
+              <br />
+              <em>intelligent</em>
+              <br />
+              systems<span className="heading-stop">.</span>
+            </h1>
+            <p className="hero-introduction">{identity.introduction}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#work">
+                Explore my work <Arrow />
+              </a>
+            </div>
+            <JourneyInvitation />
+          </JourneyCopy>
         </div>
       </div>
       <div className="hero-foot section-shell mono">
@@ -151,15 +156,17 @@ function Experience() {
       <SectionLabel number="02">THE TRAJECTORY</SectionLabel>
       <div className="experience-layout">
         <div className="experience-intro">
-          <h2 id="experience-heading">
-            Built on
-            <br />
-            <em>experience.</em>
-          </h2>
-          <p>
-            From enterprise systems to applied AI. A continuing progression toward deeper, more
-            useful engineering.
-          </p>
+          <JourneyCopy at="experience">
+            <h2 id="experience-heading">
+              Built on
+              <br />
+              <em>experience.</em>
+            </h2>
+            <p>
+              From enterprise systems to applied AI. A continuing progression toward deeper, more
+              useful engineering.
+            </p>
+          </JourneyCopy>
         </div>
         <div className="experience-list">
           {experience.map((job, index) => (
@@ -209,12 +216,14 @@ function About() {
         <SectionLabel number="03">BEYOND THE CODE</SectionLabel>
         <div className="about-layout">
           <div className="about-title">
-            <p className="eyebrow mono">RAGHAV AGARWAL / ENGINEER & EXPLORER</p>
-            <h2 id="about-heading">
-              Stay curious.
-              <br />
-              <em>Go deeper.</em>
-            </h2>
+            <JourneyCopy at="about">
+              <p className="eyebrow mono">RAGHAV AGARWAL / ENGINEER & EXPLORER</p>
+              <h2 id="about-heading">
+                Stay curious.
+                <br />
+                <em>Go deeper.</em>
+              </h2>
+            </JourneyCopy>
             <ExternalLink className="button button-primary curiosity-link" href={links.curiosity}>
               Unwinding Curiosity
             </ExternalLink>
@@ -269,18 +278,20 @@ function Contact() {
     <section className="contact-section" id="contact" aria-labelledby="contact-heading">
       <div className="contact-horizon" aria-hidden="true" />
       <div className="section-shell contact-content">
-        <SectionLabel number="04">OPEN CHANNEL</SectionLabel>
-        <p className="contact-kicker mono">GOOD CONVERSATIONS ARE A STARTING POINT.</p>
-        <h2 id="contact-heading">
-          Let’s build
-          <br />
-          <em>what’s next.</em>
-        </h2>
-        <p className="contact-intro">
-          Have an interesting problem, an idea, or a question?
-          <br />
-          I’d like to hear about it.
-        </p>
+        <JourneyCopy at="contact">
+          <SectionLabel number="04">OPEN CHANNEL</SectionLabel>
+          <p className="contact-kicker mono">GOOD CONVERSATIONS ARE A STARTING POINT.</p>
+          <h2 id="contact-heading">
+            Let’s build
+            <br />
+            <em>what’s next.</em>
+          </h2>
+          <p className="contact-intro">
+            Have an interesting problem, an idea, or a question?
+            <br />
+            I’d like to hear about it.
+          </p>
+        </JourneyCopy>
         <a className="contact-email" href={links.email}>
           {identity.email}
           <Arrow diagonal />
@@ -289,6 +300,7 @@ function Contact() {
           <ExternalLink href={links.linkedin}>Connect on LinkedIn</ExternalLink>
           <ExternalLink href={links.github}>Explore GitHub</ExternalLink>
         </div>
+        <JourneyFlightLog />
       </div>
     </section>
   );
@@ -313,7 +325,7 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
   return (
-    <>
+    <JourneyProvider>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -343,6 +355,6 @@ export default function App() {
           Image credits<span className="sr-only"> (opens in a new tab)</span>
         </a>
       </div>
-    </>
+    </JourneyProvider>
   );
 }
