@@ -14,18 +14,18 @@ The user authorized the guided journey and personal README to be submitted throu
 
 The hero's **Let me show you around** invitation starts an optional ten-chapter journey. First-person narration replaces the active section's introductory copy within the existing composition. It does not hide the rest of the portfolio or replace the working demos.
 
-| Chapter              | Focus                                                                                      |
-| -------------------- | ------------------------------------------------------------------------------------------ |
-| Liftoff              | Raghav's introduction and curiosity across Python, applied AI and the full stack.          |
-| Performance          | The Python and Polars workflow at Commonwealth Bank, with qualitative performance wording. |
-| Human judgement      | Applied AI work in development, with retrieval, interpretability and human review.         |
-| The whole system     | The replacement timesheet system built at Axiom across the application stack.              |
-| Your move            | The editable Sudoku preview and recursive backtracking.                                    |
-| Break the connection | The local transport simulation's packet loss and recovery.                                 |
-| Find a connection    | Calculated movie similarity and the effect of changing features.                           |
-| The trajectory       | A narrated career introduction above the existing Experience timeline.                     |
-| Beyond the code      | UNSW, Active Thinkers Society and Unwinding Curiosity.                                     |
-| What's next          | An open invitation to connect, explore freely or restart the flight.                       |
+| Chapter              | Focus                                                                                                       |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Liftoff              | Raghav's introduction and curiosity across Python, applied AI and the full stack.                           |
+| Performance          | The Python and Polars workflow at Commonwealth Bank, with the user-confirmed approximately 90× improvement. |
+| Human judgement      | Distinct AI stages: RCD in use, Product Concierge in staff testing, Decline Agent in development.           |
+| The whole system     | The replacement timesheet system built at Axiom across the application stack.                               |
+| Your move            | The editable Sudoku preview and recursive backtracking.                                                     |
+| Break the connection | The local transport simulation's packet loss and recovery.                                                  |
+| Find a connection    | Calculated movie similarity and the effect of changing features.                                            |
+| The trajectory       | A narrated career introduction above the existing Experience timeline.                                      |
+| Beyond the code      | UNSW, Active Thinkers Society and Unwinding Curiosity.                                                      |
+| What's next          | An open invitation to connect, explore freely or restart the flight.                                        |
 
 Next, Back and the chapter route move at the visitor's pace; there is no timed progression or scroll lock. **Flight plan** opens a native dialog with every chapter, the current location and completed experiment indicators. Visitors can jump directly to any stop. Each chapter change makes an instant scroll cut, focuses its heading and uses a brief visual settling effect. Reduced motion removes that effect. Visitors can freely scroll away and use **Return to current chapter** to rejoin. The desktop rocket continues to represent actual page-scroll position, with ten decorative chapter markers placed at their real positions on the page.
 
@@ -107,7 +107,7 @@ Tests cover anchor navigation, case-study keyboard and Escape behavior, no-JavaS
 - `public/fonts`: self-hosted Latin WOFF2 files and SIL Open Font Licenses for Barlow display typography, Inter body text and IBM Plex Mono metadata.
 - `public/images`: optimized NASA photographs and the NASA Ames/USGS Mars map; no generated planetary terrain is used.
 
-Keep professional claims consistent with the supplied brief. Polars improvement wording is intentionally qualitative. Applied AI work is explicitly in development. No résumé download is present because a current résumé was not found. Contact email and Unwinding Curiosity link are intentionally public first-party references. LinkedIn restricts direct automated access; the exact supplied profile was corroborated through first-party crosslinks and indexed content. The original Sudoku demonstration was inspected, and the transport and recommendation sources were reviewed. Their new browser previews demonstrate the underlying ideas without claiming the original backend systems are deployed or reproducing the original movie dataset. The optional presentation app is omitted because its authenticated journey was not verified. The private verification ledger is local-only and is never included in `dist`.
+Keep professional claims consistent with the verified résumé. The user confirmed approximately 90× for Python/Polars optimisation, without shareable benchmark conditions. RCD is in active use; Product Concierge is in testing with CBA staff; Decline Agent is in development. The résumé download is available near the hero and contact section. Three standalone case-study pages in `public/case-studies/` use only shareable evidence and distinguish source observations from measured results. The new career material remains on a PR until merge and deployment are explicitly approved. Private verification records stay outside this repository and `dist/`.
 
 ## Social assets
 

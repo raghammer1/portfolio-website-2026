@@ -101,6 +101,9 @@ function Hero() {
               <a className="button button-primary" href="#work">
                 Explore my work <Arrow />
               </a>
+              <a className="button button-secondary" href={links.resume} download>
+                Download résumé <Arrow diagonal />
+              </a>
             </div>
             <JourneyInvitation />
           </JourneyCopy>
@@ -135,6 +138,20 @@ function SelectedWork() {
               </a>
             ))}
           </div>
+        </div>
+      </div>
+      <div className="section-shell career-reading" aria-label="Detailed case studies">
+        <p className="eyebrow mono">READ THE ENGINEERING DETAILS</p>
+        <div className="career-reading-links">
+          <a href="/case-studies/python-performance.html">
+            Python performance <Arrow diagonal />
+          </a>
+          <a href="/case-studies/e-invoicing.html">
+            E-invoicing application <Arrow diagonal />
+          </a>
+          <a href="/case-studies/reliable-transport.html">
+            Reliable transport over UDP <Arrow diagonal />
+          </a>
         </div>
       </div>
       <div className="case-list">
@@ -299,6 +316,9 @@ function Contact() {
         <div className="contact-socials">
           <ExternalLink href={links.linkedin}>Connect on LinkedIn</ExternalLink>
           <ExternalLink href={links.github}>Explore GitHub</ExternalLink>
+          <a href={links.resume} download>
+            Download résumé
+          </a>
         </div>
         <JourneyFlightLog />
       </div>

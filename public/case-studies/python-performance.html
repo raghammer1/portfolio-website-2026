@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Faster data processing with Python and Polars | Raghav Agarwal</title>
+    <meta
+      name="description"
+      content="I replaced a costly legacy processing approach with Python and Polars, achieving an approximately 90× speed improvement. This is a high-level account of my contribution; employer code, data and internal architecture remain private."
+    />
+    <link rel="stylesheet" href="/case-studies/case-study.css" />
+  </head>
+  <body>
+    <main>
+      <nav class="nav" aria-label="Case study navigation">
+        <a href="/#work">← Portfolio</a
+        ><a href="/resume/Raghav_Agarwal_Software_Engineer.pdf">Download résumé</a>
+      </nav>
+      <p class="label">COMMONWEALTH BANK · PYTHON AND DATA</p>
+      <h1>Faster data processing with Python and Polars</h1>
+      <p class="intro">
+        I replaced a costly legacy processing approach with Python and Polars, achieving an
+        approximately 90× speed improvement. This is a high-level account of my contribution;
+        employer code, data and internal architecture remain private.
+      </p>
+      <section>
+        <h2>Problem and role</h2>
+        <p>
+          In my Associate Software Engineer role, I worked on a long-running data-processing
+          workflow in retail credit decisioning. My contribution was the Python/Polars
+          implementation that improved its execution time. The earlier approach used SAS/pandas.
+        </p>
+      </section>
+      <section>
+        <h2>Constraints</h2>
+        <p>
+          The workflow sat in a banking context, so a useful optimisation needed to preserve the
+          meaning of the processing. Confidential business rules and datasets cannot be reproduced
+          here. No customer information, internal identifiers or screenshots are included.
+        </p>
+      </section>
+      <section>
+        <h2>Approach and engineering decision</h2>
+        <p>
+          The implemented change moved the processing approach to Polars within Python. This is a
+          change to data execution rather than a claim about larger infrastructure. I can discuss
+          the role of a dataframe engine and rule readability publicly; specific queries, data
+          shapes, profiling results and migration details are not published.
+        </p>
+      </section>
+      <section>
+        <h2>Alternatives and trade offs</h2>
+        <p>
+          The known baseline is the legacy SAS/pandas approach. The available public evidence does
+          not establish a formal comparison with every alternative, or which internal operation
+          dominated runtime. A fair technical discussion should separate the measured improvement
+          from general reasons one might choose Polars, such as its execution model. I do not
+          present those general reasons as a reconstructed account of my implementation.
+        </p>
+      </section>
+      <section>
+        <h2>Correctness and validation</h2>
+        <p>
+          The performance result is my reported professional result, confirmed in October 2026. A
+          shareable benchmark dataset, hardware specification, timing distribution and
+          regression-test record are not available here. The appropriate follow-up discussion is how
+          equivalent inputs and outputs were checked, which workload was measured and how the change
+          was reviewed, without disclosing employer material.
+        </p>
+      </section>
+      <section>
+        <h2>Result</h2>
+        <p>
+          Approximately 90× faster processing and Quarterly MVP recognition. I use this single
+          result consistently rather than pairing it with incompatible hours-to-seconds figures.
+          Related work includes bidirectional translation between Polars rules and plain-English
+          pseudocode.
+        </p>
+      </section>
+      <section>
+        <h2>Limitations and next improvement</h2>
+        <p>
+          This account demonstrates an engineering contribution, not a reproducible public benchmark
+          or a universal claim that Polars is 90× faster. A useful next addition would be an
+          employer-approved description of the benchmark method and a synthetic example showing
+          output equivalence. Those are proposed additions, not completed work.
+        </p>
+      </section>
+      <section>
+        <h2>Source links</h2>
+        <ul>
+          <li>
+            <a href="https://www.linkedin.com/in/raghav-agarwal-84a59822b/">Professional profile</a>
+          </li>
+        </ul>
+      </section>
+      <footer>
+        Raghav Agarwal · October 2026 · <a href="mailto:raghagarwal@gmail.com">Contact</a>
+      </footer>
+    </main>
+  </body>
+</html>

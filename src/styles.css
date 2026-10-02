@@ -1393,3 +1393,38 @@ h1 em {
     transform: none;
   }
 }
+
+/* Recruiter reading links preserve the existing visual language. */
+.hero-actions {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.career-reading {
+  padding-bottom: 54px;
+}
+.career-reading-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  margin-top: 18px;
+}
+.career-reading-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #666;
+}
+.career-reading-links a:focus-visible {
+  outline: 2px solid #e3b67b;
+  outline-offset: 5px;
+}
+@media (max-width: 600px) {
+  .career-reading-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-actions .button {
+    min-width: 0;
+  }
+}

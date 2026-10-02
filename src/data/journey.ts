@@ -16,7 +16,7 @@ export const journeyChapters = [
     level: 'h3',
     eyebrow: 'COMMONWEALTH BANK / PYTHON & POLARS',
     title: 'Less time\nwaiting.',
-    body: 'At Commonwealth Bank, I reworked an expensive processing workflow with Python and Polars. The result was substantially faster execution.',
+    body: 'At Commonwealth Bank, I reworked an expensive processing workflow with Python and Polars. The result was an approximately 90× speed improvement.',
     note: 'For me, the interesting part is rethinking how the work gets done.',
   },
   {
@@ -24,10 +24,10 @@ export const journeyChapters = [
     label: 'Human judgement',
     headingId: 'applied-ai-heading',
     level: 'h3',
-    eyebrow: 'APPLIED AI / IN DEVELOPMENT',
+    eyebrow: 'APPLIED AI / HUMAN REVIEW',
     title: 'Keep people\nin the loop.',
     body: 'I’m developing LLM-assisted analysis with retrieval, interpretable workflows and human review. Being able to examine the result matters.',
-    note: 'Still in development. Still asking better questions.',
+    note: 'RCD is in active use; Product Concierge is in staff testing; Decline Agent is in development.',
   },
   {
     id: 'full-stack',

@@ -1,4 +1,5 @@
 export const links = {
+  resume: '/resume/Raghav_Agarwal_Software_Engineer.pdf',
   github: 'https://github.com/raghammer1',
   linkedin: 'https://www.linkedin.com/in/raghav-agarwal-84a59822b/',
   sudoku: 'https://raghammer1.github.io/sudoku2/',
@@ -40,7 +41,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'Less processing.\nMore possibility.',
     description:
       'An expensive processing workflow, rethought with Python and Polars. A practical performance improvement where execution time matters.',
-    outcome: 'Substantially reduced execution time',
+    outcome: 'Approximately 90× faster processing',
     tags: ['Python', 'Polars', 'Data processing'],
     status: 'Engineering contribution',
     details: [
@@ -50,7 +51,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: 'My contribution',
-        body: 'I designed and developed a Python solution using Polars to change the processing approach and substantially reduce execution time.',
+        body: 'I designed and developed a Python solution using Polars to replace legacy SAS/pandas processing, achieving an approximately 90× speed improvement.',
       },
       {
         title: 'The engineering choice',
@@ -58,7 +59,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: 'The outcome',
-        body: 'A substantially faster processing workflow. Related work includes a framework that translates Polars rules into readable pseudocode and supports updates back into code.',
+        body: 'An approximately 90× speed improvement and Quarterly MVP recognition. Related work includes a framework that translates Polars rules into readable pseudocode and supports updates back into code.',
       },
     ],
   },
@@ -69,14 +70,14 @@ export const caseStudies: CaseStudy[] = [
     company: 'Commonwealth Bank',
     title: 'Intelligence.\nWith human judgement.',
     description:
-      'Developing LLM-assisted analysis for retail credit decisioning, with context, interpretability and human review at the centre.',
+      'Building LLM-assisted analysis with context, interpretability and human review. The Retail Credit Decisioning assistant is in active use; related assistants are at distinct stages.',
     outcome: 'Context → retrieval → workflow → review',
     tags: ['Agent workflows', 'RAG', 'Langfuse'],
-    status: 'In development',
+    status: 'Active use · testing · development',
     details: [
       {
         title: 'The context',
-        body: 'LLM-assisted analysis needs useful context and a clear review process. This development work explores those needs in retail credit decisioning.',
+        body: 'LLM-assisted analysis needs useful context and a clear review process. My work applies those needs in retail credit decisioning.',
       },
       {
         title: 'My contribution',
@@ -88,7 +89,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: 'Current stage',
-        body: 'This work is in development. The current focus is LLM-assisted analysis with interpretable workflows, traceability and human review.',
+        body: 'As of October 2026: the Retail Credit Decisioning assistant is in active use; Product Concierge is in testing with CBA staff; the separate Decline Agent is in development. These are distinct initiatives, not one deployment.',
       },
     ],
   },

@@ -14,7 +14,7 @@ I build across Python, applied AI and full-stack development. At Commonwealth Ba
 
 March 2025 – Present
 
-I developed a Python and Polars solution that substantially reduced execution time for an expensive processing workflow. I also built a framework for translating Polars rules into readable pseudocode, with updates back into code. My applied AI work is in development, with retrieval, interpretability and human review at its centre.
+I developed a Python and Polars solution that achieved an approximately 90× speed improvement over legacy SAS/pandas processing. I also built a framework for translating Polars rules into readable pseudocode, with updates back into code. The Retail Credit Decisioning assistant is in active use. Product Concierge is in testing with CBA staff; the separate Decline Agent is in development. My work includes retrieval, interpretability, human review and Langfuse tracing.
 
 **Axiom Technologies — Software Engineer**
 
@@ -55,3 +55,7 @@ Have an interesting problem, an idea or a question? I’d like to hear about it.
 ---
 
 Working on this repository? See the [development guide](docs/development.md).
+
+## Résumé and technical case studies
+
+The site includes a [one-page résumé](public/resume/Raghav_Agarwal_Software_Engineer.pdf) and detailed case studies on Python performance, e-invoicing and reliable transport. Source pages are in `public/case-studies/`.

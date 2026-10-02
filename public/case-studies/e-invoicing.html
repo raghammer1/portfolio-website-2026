@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>From invoice documents to structured workflows | Raghav Agarwal</title>
+    <meta
+      name="description"
+      content="I implemented a MERN e-invoicing application for a university team capstone, connecting document extraction, UBL XML conversion, validation, storage and sharing. The project is historical; I do not claim current production adoption or a verified live deployment."
+    />
+    <link rel="stylesheet" href="/case-studies/case-study.css" />
+  </head>
+  <body>
+    <main>
+      <nav class="nav" aria-label="Case study navigation">
+        <a href="/#work">← Portfolio</a
+        ><a href="/resume/Raghav_Agarwal_Software_Engineer.pdf">Download résumé</a>
+      </nav>
+      <p class="label">UNSW CAPSTONE · FULL STACK</p>
+      <h1>From invoice documents to structured workflows</h1>
+      <p class="intro">
+        I implemented a MERN e-invoicing application for a university team capstone, connecting
+        document extraction, UBL XML conversion, validation, storage and sharing. The project is
+        historical; I do not claim current production adoption or a verified live deployment.
+      </p>
+      <section>
+        <h2>Problem and role</h2>
+        <p>
+          The application brought invoice conversion and validation into one web workflow. I
+          implemented the application within a six-person university team project. The current
+          public repositories contain commits under Raghav Agarwal and raghammer1; substantial code
+          was imported in the initial commits, so the history is useful for specific changes rather
+          than a complete reconstruction of development.
+        </p>
+      </section>
+      <section>
+        <h2>Architecture</h2>
+        <p>
+          A React interface calls an Express API. The backend coordinates PDF extraction through
+          Veryfi, converts extracted JSON into UBL XML, stores documents with MongoDB/GridFS and
+          invokes an external UBL validator. Separate routes support authentication, profile
+          editing, document access, report generation, sharing and email history.
+        </p>
+      </section>
+      <section>
+        <h2>Technical decisions and constraints</h2>
+        <p>
+          External extraction and validation APIs provide specialised document capabilities, while
+          the application manages the user workflow and stored records. GridFS keeps binary
+          documents in the MongoDB storage stack. Those choices introduce provider availability,
+          response-shape and access-control concerns. The course report records an approved
+          extraction-provider substitution, but it does not establish my personal decision process,
+          so I do not invent a comparison I cannot reconstruct.
+        </p>
+      </section>
+      <section>
+        <h2>A concrete integration correction</h2>
+        <p>
+          Frontend commit 13e69d2 changes login-token access from response.token to
+          response.data.token, matching the Axios response wrapper. Commit 8b7cf35 adds registration
+          cookie handling. Backend commit 4a88e42 replaces local password-reset links with the
+          hosted frontend URLs. These changes show the client, API and environment boundaries that
+          need agreement; the commits alone do not establish the original diagnosis or user impact.
+        </p>
+      </section>
+      <section>
+        <h2>Correctness and test evidence</h2>
+        <p>
+          The backend includes five Jest files covering authentication, password reset, file
+          retrieval and email history. Cypress browser-test source exists in the frontend. Test
+          presence is distinct from current pass status: some tests connect to the configured
+          database and create or delete records, so they were not run against historical services.
+          No measured coverage percentage is claimed.
+        </p>
+      </section>
+      <section>
+        <h2>Risks and limitations</h2>
+        <p>
+          This is a capstone application rather than a certified compliance or security product.
+          Historical URLs, dependency age, external API credentials, document authorisation and test
+          isolation require review before reuse. Original project documentation is not distributed
+          because it contains sensitive configuration material.
+        </p>
+      </section>
+      <section>
+        <h2>Result and next steps</h2>
+        <p>
+          The source contains an end-to-end application structure for conversion, validation and
+          sharing. No customer count, financial saving or error-rate metric is available. Next work
+          would use disposable test services, provider mocks, malformed-document fixtures,
+          consistent environment configuration and a route-by-route ownership review before any new
+          deployment.
+        </p>
+      </section>
+      <section>
+        <h2>Source links</h2>
+        <ul>
+          <li><a href="https://github.com/raghammer1/E-Invoicing-Backend">Backend source</a></li>
+          <li>
+            <a
+              href="https://github.com/raghammer1/E-Invoicing-frontend/commit/13e69d2bd46dab48bc31b4cd41eed64fd1e780c7"
+              >Login correction</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/raghammer1/E-Invoicing-frontend/commit/8b7cf355b3105a0af52277b395c84f4896e16ce7"
+              >Registration handling</a
+            >
+          </li>
+        </ul>
+      </section>
+      <footer>
+        Raghav Agarwal · October 2026 · <a href="mailto:raghagarwal@gmail.com">Contact</a>
+      </footer>
+    </main>
+  </body>
+</html>

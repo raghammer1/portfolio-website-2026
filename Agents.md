@@ -7,7 +7,9 @@ Applies to this repository. Keep this file current when the user changes project
 - Work in this repository. Preserve unrelated and uncommitted work; do not reset it or overwrite another agent's edits.
 - Spend no money. Do not purchase domains, upgrade plans, or enable paid or metered add-ons.
 - On 2026-10-02 the user explicitly authorized submitting the guided journey and personal README through a GitHub PR, merging into `main`, and deploying to the existing free Cloudflare site. This supersedes the earlier local-only restriction. Use the PR workflow; preserve repository visibility and the no-spend constraint.
-- The guided journey and personal README were merged through [PR #1](https://github.com/raghammer1/portfolio-website-2026/pull/1); the production build from `fc1ba53` was deployed on 2026-10-02. The live journey and Experience navigation were checked, and all 21 published files matched the local production build byte-for-byte. Deploy future verified builds from merged `main` to the existing Worker; do not add infrastructure or paid services.
+- Current career remediation must remain on an isolated branch and PR. Do not merge or deploy it automatically; the current user brief supersedes earlier release authorization. Keep LinkedIn profile-update notifications off for any related edits.
+- Career content uses verified employment, education and selected public projects only. Do not add unrelated independent business/product work or claims derived solely from it.
+- The guided journey and personal README were merged through [PR #1](https://github.com/raghammer1/portfolio-website-2026/pull/1); the production build from `fc1ba53` was deployed on 2026-10-02. The live journey and Experience navigation were checked, and all 21 published files matched the local production build byte-for-byte. Only deploy a future verified build after fresh user authorization; do not add infrastructure or paid services.
 - Public GitHub, LinkedIn, and other first-party sources may be inspected when needed to verify portfolio content. Do not invent professional achievements, measurements, or project capabilities.
 - Upload only the public production output in `dist/` for deployment. The previous publication does not authorize uploading private repository files or changing repository visibility.
 
@@ -50,8 +52,8 @@ Applies to this repository. Keep this file current when the user changes project
 
 - `Readme.md` is Raghav’s personal profile: write in first person about his work, projects, skills, education and interests. Keep setup, architecture, testing and hosting instructions in `docs/development.md`; do not turn the README back into website documentation.
 
-- Keep the Polars performance improvement qualitative unless the user supplies a verified measurement. Applied AI work is explicitly in development.
-- Do not add a résumé download until a current résumé is supplied or verified. Do not add an unverified authenticated project journey as a working demo.
+- The user confirmed approximately 90× for the Python/Polars optimisation. Do not combine this with incompatible hours/seconds or invent benchmark conditions. RCD is in active use; Product Concierge is in testing with CBA staff; the separate Decline Agent is in development (confirmed October 2026).
+- A verified one-page résumé is stored in `public/resume/`. Keep it consistent with the approved professional facts. Do not add unverified authenticated projects as live demos.
 - Do not use, test, copy, or expose credentials encountered in upstream project sources. Local previews must not connect to those projects' databases or backends.
 - Keep private verification notes out of public files, build output, and commits. Do not copy the private verification ledger into this file.
 - Images and fonts are self-hosted. Preserve font licenses and image-specific attribution/reuse terms in `docs/image-credits.md` and its public counterpart, `public/image-credits.txt`. Do not assume all NASA-associated imagery has identical reuse terms.
