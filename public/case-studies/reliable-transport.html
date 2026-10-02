@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Exploring reliable transfer over UDP | Raghav Agarwal</title>
+    <meta
+      name="description"
+      content="A sender and receiver explore how sequence numbers, acknowledgements and retransmission can support text transfer above UDP. The most useful part of this project is the visible protocol state and its failure modes."
+    />
+    <link rel="stylesheet" href="/case-studies/case-study.css" />
+  </head>
+  <body>
+    <main>
+      <nav class="nav" aria-label="Case study navigation">
+        <a href="/#work">← Portfolio</a
+        ><a href="/resume/Raghav_Agarwal_Software_Engineer.pdf">Download résumé</a>
+      </nav>
+      <p class="label">PYTHON · NETWORKING LEARNING PROJECT</p>
+      <h1>Exploring reliable transfer over UDP</h1>
+      <p class="intro">
+        A sender and receiver explore how sequence numbers, acknowledgements and retransmission can
+        support text transfer above UDP. The most useful part of this project is the visible
+        protocol state and its failure modes.
+      </p>
+      <section>
+        <h2>Problem and role</h2>
+        <p>
+          UDP does not supply the ordered, acknowledged delivery expected by a file-transfer
+          application. I built a Python learning implementation that adds those mechanisms over
+          loopback sockets. It is an educational protocol, not a production replacement for TCP.
+        </p>
+      </section>
+      <section>
+        <h2>Architecture</h2>
+        <p>
+          The sender maintains a sliding window, tracks acknowledgements and runs send/listen work
+          in threads. The receiver buffers segments, writes ordered text and sends cumulative
+          acknowledgements. SYN and FIN packet types manage setup and shutdown. Configurable forward
+          and reverse loss simulate dropped data and acknowledgements.
+        </p>
+      </section>
+      <section>
+        <h2>Design trade offs</h2>
+        <p>
+          A custom protocol makes acknowledgement and retry behavior observable, while using TCP
+          would delegate reliability to the transport stack. A sliding window allows multiple
+          outstanding segments, at the cost of more state than stop-and-wait. The source uses global
+          variables and thread coordination; this makes ordering and shared-state reasoning central.
+          These are observations of the implementation, not a claim that it reproduces TCP
+          congestion control.
+        </p>
+      </section>
+      <section>
+        <h2>Validation and observed limits</h2>
+        <p>
+          During the October 2026 review, two 5,120-byte local text transfers completed with
+          identical output: one with zero simulated loss and one with 10% configured loss in each
+          direction. These are bounded smoke checks, not a comprehensive reliability test. Loss
+          arguments are integer percentages from 0 to 100; a decimal probability is rejected by the
+          current parser.
+        </p>
+      </section>
+      <section>
+        <h2>Failure risks</h2>
+        <p>
+          Sequence wraparound, duplicate acknowledgements, timeout handling, large files and text
+          encoding boundaries deserve explicit regression cases. The scripts overwrite their
+          log/output files, so experiments should use disposable directories. The implementation
+          does not provide encryption, authentication or congestion control.
+        </p>
+      </section>
+      <section>
+        <h2>Result and next improvement</h2>
+        <p>
+          The project provides inspectable Python protocol code and a verified local starting point.
+          The next engineering step is a regression harness covering deterministic loss patterns,
+          sequence wraparound, timeout boundaries and larger files. Throughput and production-scale
+          results are not claimed.
+        </p>
+      </section>
+      <section>
+        <h2>Source links</h2>
+        <ul>
+          <li>
+            <a href="https://github.com/raghammer1/Server-and-receiver-sim"
+              >Python sender and receiver</a
+            >
+          </li>
+        </ul>
+      </section>
+      <footer>
+        Raghav Agarwal · October 2026 · <a href="mailto:raghagarwal@gmail.com">Contact</a>
+      </footer>
+    </main>
+  </body>
+</html>
