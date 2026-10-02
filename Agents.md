@@ -6,9 +6,9 @@ Applies to this repository. Keep this file current when the user changes project
 
 - Work in this repository. Preserve unrelated and uncommitted work; do not reset it or overwrite another agent's edits.
 - Spend no money. Do not purchase domains, upgrade plans, or enable paid or metered add-ons.
-- The user initially prohibited hosting and subsequently requested research into completely free hosting without inactivity sleep. Research is complete; deployment has not been requested or performed. A later explicit deployment request can change this status; do not turn this historical restriction into an unnecessary approval loop.
+- The user explicitly authorized deployment to Cloudflare on 2026-10-02, superseding the initial no-hosting instruction. The portfolio is live on free static hosting at [raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/). Preserve the no-spend constraint; do not ask again for permission to perform work within the authorized deployment scope.
 - Public GitHub, LinkedIn, and other first-party sources may be inspected when needed to verify portfolio content. Do not invent professional achievements, measurements, or project capabilities.
-- Keep work local unless the current task authorizes an external action. A request to find hosting does not itself authorize publishing, uploading the repository, or changing repository visibility.
+- Upload only the public production output in `dist/` for deployment. Publishing this portfolio does not authorize uploading private repository files or changing repository visibility.
 
 ## Design direction to preserve
 
@@ -39,13 +39,17 @@ Applies to this repository. Keep this file current when the user changes project
 - Do not use, test, copy, or expose credentials encountered in upstream project sources. Local previews must not connect to those projects' databases or backends.
 - Keep private verification notes out of public files, build output, and commits. Do not copy the private verification ledger into this file.
 - Images and fonts are self-hosted. Preserve font licenses and image-specific attribution/reuse terms in `docs/image-credits.md` and its public counterpart, `public/image-credits.txt`. Do not assume all NASA-associated imagery has identical reuse terms.
-- A public origin has not been chosen. Once an actual deployment URL is established, update canonical metadata, `og:url`, and absolute social-image URLs for that origin; do not invent a domain.
+- The production origin is `https://raghav-agarwal.raghagarwal.workers.dev`. Keep canonical metadata, `og:url`, and absolute social-image URLs aligned with it. Verify the published site and affected assets after subsequent deployments.
 
-## Hosting research, checked 2026-10-02
+## Cloudflare hosting, authorized 2026-10-02
 
-- Recommended candidate: **Cloudflare Workers Static Assets on the Free plan**, serving only the built `dist/` files with the included `workers.dev` address. Cloudflare now recommends Workers for new projects; Pages remains an alternative.
+- Platform: **Cloudflare Workers Static Assets on the Free plan**. Worker name: `raghav-agarwal`; Cloudflare account/subdomain: `raghagarwal`; production origin: `https://raghav-agarwal.raghagarwal.workers.dev`. The dashboard deployment, $0 plan and public HTTP 200 response were verified on 2026-10-02.
+- `wrangler.jsonc` is assets-only, with `assets.directory` set to `./dist`, no server entry point and no service bindings. Preserve that boundary unless the user requests a change; the portfolio requires no deployed backend.
+- Initial deployment used the dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository itself. The local Wrangler CLI is not yet authenticated; dashboard login does not establish CLI authentication.
+- Repeatable CLI path, using the existing `raghagarwal` account: `npm run build`, `npx wrangler@4.146.0 login` when authentication is needed, then `npx wrangler@4.146.0 deploy`. Check the target account and Worker before deploying. Do not add credentials to source files or commits.
+- Use the included `workers.dev` address and preserve the no-spend constraint. Do not purchase a domain, upgrade the account or enable paid add-ons. Update this file and `Readme.md` when the hosting status, public origin or deployment workflow changes.
 - Static asset requests are free and unlimited, with no additional asset-storage charge under current documentation. This static architecture avoids an application server sleeping after inactivity. It is not a guarantee of uninterrupted uptime or permanent pricing.
-- Keep the distinction between static asset hosting and billable Worker execution or optional services. Recheck current terms and limits before any future deployment; research has not selected or enabled a paid product.
+- Keep the distinction between static asset hosting and billable Worker execution or optional services. Recheck relevant free-plan terms and limits when changing deployment scope; no paid product is selected or authorized.
 - GitHub Pages is another free option for a public repository. Do not make a private repository public merely to qualify. If using a repository-path URL, audit the site's root-relative asset paths first.
 - Official references: [Cloudflare recommendation](https://developers.cloudflare.com/pages/), [static asset pricing](https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/), [Workers limits](https://developers.cloudflare.com/workers/platform/limits/), [included address](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/), [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
 

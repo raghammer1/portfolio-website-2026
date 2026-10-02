@@ -20,7 +20,23 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-Open **http://127.0.0.1:4173**. Both servers bind to loopback. No hosting configuration, account, external runtime API, analytics, paid service or deployment is required or included.
+Open **http://127.0.0.1:4173**. Both local servers bind to loopback. The portfolio needs no external runtime API, database, analytics or paid service.
+
+## Cloudflare hosting
+
+Live at **[raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghagarwal.workers.dev/)** on **Cloudflare Workers Static Assets, Free plan**. The Worker is `raghav-agarwal` in the `raghagarwal` account. The dashboard deployment and a public HTTP 200 response were verified on 2 October 2026; the account remains on the $0 plan.
+
+`wrangler.jsonc` serves only the production `dist/` directory. It contains no Worker server entry point or paid-service bindings. The initial deployment used the Cloudflare dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository, dependencies, private verification notes or credentials.
+
+For a repeatable CLI deployment after authentication:
+
+```sh
+npm run build
+npx wrangler@4.146.0 login
+npx wrangler@4.146.0 deploy
+```
+
+The CLI is not yet authenticated for this workspace; the initial dashboard deployment does not authenticate Wrangler. Use the existing `raghagarwal` Cloudflare account. Keep the Free plan and included `workers.dev` address; do not purchase domains, upgrade plans or enable paid add-ons. Static asset requests and storage are currently free under [Cloudflare's static asset pricing](https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/). Static hosting does not require a server to wake after inactivity; it is not a guarantee of uninterrupted uptime or permanent pricing.
 
 ## Verify
 
@@ -46,6 +62,7 @@ Tests cover anchor navigation, case-study keyboard and Escape behavior, no-JavaS
 - `src/components/MoviePreview.tsx`, `src/lib/movieSimilarity.ts` and `src/data/movieCatalogue.ts`: an educational browser version of content-based movie discovery using ten hand-curated sample titles. Raw term counts, smoothed TF-IDF, L2 normalization and cosine similarity compute the three closest matches. Visitors can compare genres with or without keywords; percentages mean content similarity. This local preview is separate from the original React/Node.js/MongoDB application and its Python/Flask recommendation service. It makes no database or API requests.
 - `src/styles.css`, `src/scenes.css` and `src/chapters.css`: shared design tokens, cinematic layouts, photographic middle chapters, responsive framing and motion preferences. The mobile composition adjusts image placement and type size explicitly.
 - `scripts/prerender.mjs`: builds and renders static HTML, then removes its temporary server bundle. The browser hydrates that content for enhancements.
+- `wrangler.jsonc`: Cloudflare Workers Static Assets configuration for the built `dist/` directory, with no production server or service bindings.
 - `public/fonts`: self-hosted Latin WOFF2 files and SIL Open Font Licenses for Barlow display typography, Inter body text and IBM Plex Mono metadata.
 - `public/images`: optimized NASA photographs and the NASA Ames/USGS Mars map; no generated planetary terrain is used.
 
@@ -59,4 +76,4 @@ Keep professional claims consistent with the supplied brief. Polars improvement 
 npm run social:generate
 ```
 
-The build includes title, description, theme colour, Open Graph and Twitter metadata. There is intentionally no invented public domain or canonical URL for this local-only delivery. If a public URL is established later, set a canonical URL, `og:url`, and absolute social-image URLs for that origin before publishing. This project does not publish anything.
+The build includes title, description, theme colour, Open Graph and Twitter metadata. Canonical metadata, `og:url` and absolute social-image URLs use the production origin `https://raghav-agarwal.raghagarwal.workers.dev`. If the public address changes later, update those values together and verify the published image URLs.

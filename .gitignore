@@ -8,3 +8,5 @@ playwright-report/
 
 .prerender/
 *.tsbuildinfo
+.wrangler/
+.dev.vars*
