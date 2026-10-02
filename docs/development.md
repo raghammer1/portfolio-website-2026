@@ -61,6 +61,8 @@ Live at **[raghav-agarwal.raghagarwal.workers.dev](https://raghav-agarwal.raghag
 
 `wrangler.jsonc` serves only the production `dist/` directory. It contains no Worker server entry point or paid-service bindings. The initial deployment used the Cloudflare dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository, dependencies, private verification notes or credentials.
 
+For a dashboard release, open the existing **raghav-agarwal** Worker, choose **New deployment**, and select the built `dist/` folder. Review the listed static assets, then choose **Deploy**. Verify the public site and its versioned assets after publication. Dashboard login does not authenticate the CLI.
+
 For CLI deployment after authentication:
 
 ```sh
