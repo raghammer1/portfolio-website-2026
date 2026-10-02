@@ -36,7 +36,7 @@ Applies to this repository. Keep this file current when the user changes project
 
 - React + TypeScript + Vite, requiring Node.js 22.12 or newer. Production builds are static files in `dist/`.
 - `scripts/prerender.mjs` generates HTML at build time; the browser hydrates it. There is no production Node server, live backend, database, or external runtime API required by this portfolio.
-- `src/data/content.ts` owns identity, public links, professional content, and project descriptions. `src/data/journey.ts` owns chapter narration and targets; keep both sources factually consistent. `JourneyProvider`, `JourneyContext` and `JourneyCopy` in `src/components/journey/` supply the optional journey without remounting the page. `Readme.md` describes the component structure in detail.
+- `src/data/content.ts` owns identity, public links, professional content, and project descriptions. `src/data/journey.ts` owns chapter narration and targets; keep both sources factually consistent. `JourneyProvider`, `JourneyContext` and `JourneyCopy` in `src/components/journey/` supply the optional journey without remounting the page. `docs/development.md` describes the component structure in detail.
 - Shared styles load in this order: `styles.css`, `scenes.css`, `chapters.css`, then `components/journey/Journey.css`. Check existing overrides before adding more. Keep new component styles scoped and preserve the normal composition when journey mode is inactive.
 - `ObservatoryVisual.tsx` and `marsRenderer.ts` render a rotating NASA/USGS surface map using native WebGL. Preserve the photographic fallback, explicit play/pause, reduced-motion loading behavior, mobile texture, and offscreen/hidden-tab suspension. Avoid adding a large graphics dependency for cosmetic changes.
 - Engineering case studies use native `<details>` disclosures, remain readable without JavaScript, and support Escape-to-close with focus restoration. Their diagrams are conceptual illustrations, not actual employer architecture or internal screenshots.
@@ -47,6 +47,8 @@ Applies to this repository. Keep this file current when the user changes project
   - **Movies:** a hand-curated sample catalogue, raw term counts, smoothed TF-IDF, L2 normalization, and cosine similarity. Results are calculated, not canned. Scores mean content similarity, not confidence or accuracy. Do not imply a live movie catalogue, running Python backend, or continuously learning model.
 
 ## Content and asset integrity
+
+- `Readme.md` is Raghav’s personal profile: write in first person about his work, projects, skills, education and interests. Keep setup, architecture, testing and hosting instructions in `docs/development.md`; do not turn the README back into website documentation.
 
 - Keep the Polars performance improvement qualitative unless the user supplies a verified measurement. Applied AI work is explicitly in development.
 - Do not add a résumé download until a current résumé is supplied or verified. Do not add an unverified authenticated project journey as a working demo.
@@ -63,7 +65,7 @@ The initial deployment was authorized and completed on 2026-10-02. **Do not run 
 - `wrangler.jsonc` is assets-only, with `assets.directory` set to `./dist`, no server entry point and no service bindings. Preserve that boundary unless the user requests a change; the portfolio requires no deployed backend.
 - Initial deployment used the dashboard's **Upload your static files** flow with the built `dist/` folder. Never upload the repository itself. The local Wrangler CLI is not yet authenticated; dashboard login does not establish CLI authentication.
 - Repeatable CLI path, using the existing `raghagarwal` account: `npm run build`, `npx wrangler@4.146.0 login` when authentication is needed, then `npx wrangler@4.146.0 deploy`. Check the target account and Worker before deploying. Do not add credentials to source files or commits.
-- Use the included `workers.dev` address and preserve the no-spend constraint. Do not purchase a domain, upgrade the account or enable paid add-ons. Update this file and `Readme.md` when the hosting status, public origin or deployment workflow changes.
+- Use the included `workers.dev` address and preserve the no-spend constraint. Do not purchase a domain, upgrade the account or enable paid add-ons. Update this file and `docs/development.md` when the hosting status, public origin or deployment workflow changes. Update the profile’s portfolio link only if the public origin changes.
 - Static asset requests are free and unlimited, with no additional asset-storage charge under current documentation. This static architecture avoids an application server sleeping after inactivity. It is not a guarantee of uninterrupted uptime or permanent pricing.
 - Keep the distinction between static asset hosting and billable Worker execution or optional services. Recheck relevant free-plan terms and limits when changing deployment scope; no paid product is selected or authorized.
 - GitHub Pages is another free option for a public repository. Do not make a private repository public merely to qualify. If using a repository-path URL, audit the site's root-relative asset paths first.
@@ -87,4 +89,4 @@ The initial deployment was authorized and completed on 2026-10-02. **Do not run 
 - Responsive checks cover 375, 390, 768, 1280, 1440, and 1920px. Inspect mobile and desktop screenshots in `test-results/screenshots/` for visual changes.
 - Parallel agents must own separate files. Concurrent Playwright runs need separate output directories and `--reporter=list` to avoid deleting shared artifacts. Coordinate builds so tests inspect the intended version.
 - Keep `dist/`, `.prerender/`, test artifacts, dependencies, and credentials out of source commits. Do not report historical test results as verification of new changes.
-- Update `Readme.md` when setup or public behavior changes, and update this file when durable working guidance changes.
+- Update `docs/development.md` when setup or public behavior changes, `Readme.md` when verified profile information changes, and this file when durable working guidance changes.
